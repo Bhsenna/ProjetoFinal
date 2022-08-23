@@ -1,0 +1,7 @@
+.enunciado{
+    display: flex;
+}
+li ::before{
+    background-color: grey;
+    font-size: x-large;
+}
