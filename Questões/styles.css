@@ -1,7 +1,12 @@
-.enunciado{
-    display: flex;
+h2{
+    display: inline;
 }
-li ::before{
-    background-color: grey;
+.prova li::marker{
     font-size: x-large;
+}
+.alternativas li{
+    list-style: lower-alpha;
+}
+.alternativas li::marker{
+    font-size: medium;
 }
