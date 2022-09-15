@@ -1,43 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>{% include 'elefante/partials/styles.css' %}</style>
     <script type="module"> {% include 'elefante/partials/script.js' %} </script>
 </head>
 <body>
-<nav id='menu'>
-  <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
-  <ul>
-    <li><a href='/movel'>Reset</a></li>
-  </ul>
-</nav>
-<div style="display: flex;">
-    <div id="area1">
-        <!-- Draggable DIV -->
-        <div id="1" class="drag">
+    
+    <div class="w3-container">
+      
+        <div class="w3-bar w3-section w3-black w3-card-4">
+          <a href='/movel' class="w3-bar-item w3-button w3-green w3-hover-red w3-padding-16">Home</a>
+          <a class="w3-bar-item w3-button w3-hover-red w3-padding-16">Link 1</a>
+          <a class="w3-bar-item w3-button w3-hover-red w3-padding-16">Link 2</a>
+        </div>
+      </div>
+    
+      <div class="sidenav">
+        <div id="1" class="modelo">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-            <div id="1header" class="thing">Click here to move</div>
-            <p>Questão</p>
+            <div id="1header" class="thing">Modelo 1</div>
         </div>
     
-        <div id="2" class="drag" style="top: 100px;">
+        <div id="2" class="modelo" style="top: 70px;">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-            <div id="2header" class="thing">Click here to move</div>
-            <p>Questão</p>
+            <div id="2header" class="thing">Modelo 2</div>
         </div>
     
-        <div id="3" class="drag" style="top: 200px;">
+        <div id="3" class="modelo" style="top: 120px;">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-            <div id="3header" class="thing">Click here to move</div>
-            <p>Questão</p>
+            <div id="3header" class="thing">Modelo 3</div>
         </div>
-    </div>
-    <div id="area2">
-        
-    </div>
-</div>
-<p id="measure" style="text-align: center;"></p>
+      </div>
+      
+      <div class="pag">
+        <div id="area2" class="child"></div>
+      </div>
+
+      <div class="sidenav2">
+        <p id="measure" style="text-align: center;"></p>
+      </div>
+      
 </body>
 </html>
