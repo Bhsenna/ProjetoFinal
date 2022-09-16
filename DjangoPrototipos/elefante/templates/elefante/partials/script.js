@@ -46,17 +46,8 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
 
-    let rect = elmnt.getBoundingClientRect()
     elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-
-    let para = document.getElementById("measure")
-    para.innerHTML = ''
-    for (const key in rect){
-    if (typeof rect[key] !== 'function'){
-        para.innerHTML += `${key} : ${rect[key]}<br>`
-    }
-}
   }
 
   function closeDragElement() {
@@ -67,9 +58,10 @@ function dragElement(elmnt) {
       let newItems = document.getElementById("area2")
       let newEl = elmnt.cloneNode(true)
       newEl.style.top =  (newItems.childElementCount * 50) + 'px'
-      newEl.style.left = 0
+      newEl.style.left = (limite.width / 2) - (rect.width / 2) + 'px'
       newEl.id = 'questao' + (newItems.childElementCount + 1)
       newEl.className = 'questao'
+      newEl.innerHTML = 'Questao ' + (newItems.childElementCount + 1)
       newItems.appendChild(newEl)
     }
 
@@ -86,8 +78,8 @@ function dragElement(elmnt) {
 }
 
 function dragOrder(elmnt) {
-  const originalTop = elmnt.offsetTop
-  const originalLeft = elmnt.offsetLeft
+  var originalTop = elmnt.offsetTop
+  var originalLeft = elmnt.offsetLeft
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elmnt.id + "header")) {
     // if present, the header is where you move the DIV from:
@@ -117,31 +109,52 @@ function dragOrder(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
 
-    let rect = elmnt.getBoundingClientRect()
     elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-
-    let para = document.getElementById("measure")
-    para.innerHTML = ''
-    for (const key in rect){
-    if (typeof rect[key] !== 'function'){
-        para.innerHTML += `${key} : ${rect[key]}<br>`
-    }
-}
   }
 
   function closeDragOrderElement() {
     // stop moving when mouse button is released:
-    if (pos3 > originalTop){
-      let elemento = document.getElementById(`${elmnt.id}`)
-      let anterior = document.getElementById('questao1')
-      elemento.after(anterior);
+    let all = []
+    for (const object of document.getElementById('area2').children){
+      all.push(object)
+    }
+    
+    let elemento = document.getElementById(`${elmnt.id}`)
+    let anterior = all[all.indexOf(elemento) - 1]
+    let posterior = all[all.indexOf(elemento) + 1]
+
+    if (anterior === undefined && posterior === undefined){
+    }else if (posterior === undefined){
+      console.log(originalTop + 75)
+      console.log(pos4)
+      if (pos4 < (originalTop + 75)){
+        elemento.after(anterior);
+      }
+    }else if (anterior === undefined){
+      if (pos4 > (originalTop + 75)){
+        posterior.after(elemento);
+      }
+    }else{
+      if (pos4 < (originalTop + 75)){
+        elemento.after(anterior);
+      }else if (pos4 > (originalTop + 75)){
+        posterior.after(elemento);
+      }
     }
 
-    // elmnt.style.top = originalTop + "px";
-    // elmnt.style.left = originalLeft + "px";
-
+    elmnt.style.left = originalLeft + "px";
+    changeOrder()
+    originalTop = elmnt.offsetTop
+    originalLeft = elmnt.offsetLeft
     document.onmouseup = null;
     document.onmousemove = null;
+  }
+}
+
+function changeOrder() {
+  let all = document.getElementById('area2').children
+  for (let i = 0; i < all.length; i++){
+    all[i].style.top =  (i * 50) + 'px'
   }
 }
