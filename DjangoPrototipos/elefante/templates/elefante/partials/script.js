@@ -59,9 +59,10 @@ function dragElement(elmnt) {
       let newEl = elmnt.cloneNode(true)
       newEl.style.top =  (newItems.childElementCount * 50) + 'px'
       newEl.style.left = (limite.width / 2) - (rect.width / 2) + 'px'
+      newEl.className = `questao tipo${newEl.id.slice(-1)}`
       newEl.id = 'questao' + (newItems.childElementCount + 1)
-      newEl.className = 'questao'
       newEl.innerHTML = 'Questao ' + (newItems.childElementCount + 1)
+
       newItems.appendChild(newEl)
     }
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load crispy_forms_tags %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,7 @@
     <div class="w3-container">
       
         <div class="w3-bar w3-section w3-black w3-card-4">
-          <a href='/movel' class="w3-bar-item w3-button w3-green w3-hover-red w3-padding-16">Home</a>
+          <a href='/' class="w3-bar-item w3-button w3-green w3-hover-red w3-padding-16">Home</a>
           <a class="w3-bar-item w3-button w3-hover-red w3-padding-16">Link 1</a>
           <a class="w3-bar-item w3-button w3-hover-red w3-padding-16">Link 2</a>
         </div>
@@ -38,12 +39,14 @@
       </div>
       
       <div class="pag">
-        <div id="area2" class="child"></div>
+        <form id="area2" class="child" action="." method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="Salvar">
+        </form>
       </div>
 
-      <div class="sidenav2">
-        <p id="measure" style="text-align: center;"></p>
-      </div>
+      <div class="sidenav2"></div>
       
 </body>
 </html>
