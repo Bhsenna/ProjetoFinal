@@ -16,13 +16,25 @@ body{
     justify-content: center;
 }
 
+
 main.container{
     background: #fff;
-    width: 350px;
-    height: 50vh;
+    min-width: 350px;
+    max-height: 60vh;
     padding: 5rem;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+}
+
+img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    margin-top: 1rem 1rem 1rem;
+    padding-bottom: 1px 5px 25px;
+
 }
 
 main h2{
@@ -30,6 +42,8 @@ main h2{
     margin-bottom: 3rem;
     position: relative;
 }
+
+
 
 main h2::before{
     content: "";
@@ -77,7 +91,7 @@ form .input-field:first-child{
     position: absolute;
     height: 2px;
     width: 50%;
-    bottom: -7px;
+    bottom: -5px;
     left: 0;
     background: linear-gradient(45deg, #3a9b73, #31db94);
     transform: scaleX(0);
