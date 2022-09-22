@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2? family= Open+Sans:wght@300;400;700 & family= Poppins:wght@100;200;300;400;500 & display=trocar');3
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+}
+body{
+    background: linear-gradient(45deg, #30e69a, #78f3bf);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+main.container{
+    background: #fff;
+    min-width: 350px;
+    max-height: 60vh;
+    padding: 5rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    margin-top: 1rem 1rem 1rem;
+    padding-bottom: 1px 5px 25px;
+
+}
+
+main h2{
+    font-weight: 800;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+
+
+main h2::before{
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 25px;
+    bottom: 4px;
+    left: 0;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #30e69a, #78f3bf);
+}
+
+.input-field{
+    position: relative;
+
+}
+
+.input-field input{
+    outline: none;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.input-field input::placeholder{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+form .input-field:first-child{
+    margin-bottom: 1.5rem;
+
+}
+
+.input-field .underline::before{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 50%;
+    bottom: -5px;
+    left: 0;
+    background: rgba(90, 248, 235, 0.2);
+}
+
+.input-field .underline::after{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 50%;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(45deg, #3a9b73, #31db94);
+    transform: scaleX(0);
+    transition: all .3s  ease-in-out;
+    transform-origin: left;
+}
+
+.input-field input:focus ~ .underline::after{
+    transform: scaleX(1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+form input[type="submit"] {
+    margin-top: 2rem;
+    padding: 0.4rem;
+    background: linear-gradient(to left, #50e4a6, #78f3bf);
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.3s ease; 
+}
+
+form input[type="submit"]:hover{
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #5bf3b4, #78f3bf);
+
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.footer span{
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer .social-field{
+    padding: 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    width: 96%;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.footer .social-field a i{
+    margin: 0 0.5rem;
+    width: 15px;
+}
+
+.footer .social-field a{
+    text-decoration: none;
+    color: white;
+}
+
+.footer .social-field.facebook{
+    background: linear-gradient(to left, #4ba4f7, #468aca);
+}
+
+.footer .social-field.linkedin{
+    background: linear-gradient(to left, #4d97dd, #468aca);
+}
