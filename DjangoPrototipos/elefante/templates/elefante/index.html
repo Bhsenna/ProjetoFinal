@@ -8,7 +8,18 @@
     <title>Criação</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>{% include 'elefante/partials/styles.css' %}</style>
-    <script type="module"> {% include 'elefante/partials/script.js' %} </script>
+    <script>
+      function save() {
+        let coisa = document.getElementById("id_prova")
+        let questoes = document.getElementsByClassName("questao")
+        for (var i=0; i < questoes.length; i++) {
+            let attr = questoes[i].attributes
+            coisa.value += `id: "${attr.id.value}" - class: "${attr.class.value}"\n`;
+        }
+        document.getElementById("area2").requestSubmit()
+      }
+    </script>
+    <script type="module">{% include 'elefante/partials/script.js' %}</script>
 </head>
 <body>
     
@@ -41,8 +52,8 @@
       <div class="pag">
         <form id="area2" class="child" action="." method="POST">
             {% csrf_token %}
-            {{form|crispy}}
-            <input type="submit" value="Salvar">
+            <textarea name="questoes" id="id_prova" style="visibility: hidden;" {% if form.questoes.value != None %}value="{{ form.questoes.value|stringformat:'s' }}"{% endif %} required></textarea>
+            <input type="button" value="Salvar" onclick="save()">
         </form>
       </div>
 

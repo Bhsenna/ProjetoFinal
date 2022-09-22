@@ -14,5 +14,6 @@ def movel(request):
         if form.is_valid():
             cadastro = form.save()
             form = Cadastro()
+            return render(request, 'elefante/index.html', {'form': form})
         else:
             return render(request, 'elefante/index.html', {'form': form})
