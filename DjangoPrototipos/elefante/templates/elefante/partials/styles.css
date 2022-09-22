@@ -34,6 +34,12 @@
   color: #fff;
 }
 
+#submit{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
 body{
     background-color: #5ce1e6;
     font-family: "Lato", sans-serif;

@@ -14,6 +14,7 @@
         let questoes = document.getElementsByClassName("questao")
         for (var i=0; i < questoes.length; i++) {
             let attr = questoes[i].attributes
+            console.log(document.getElementById(`${attr.id.value}`).innerHTML)
             coisa.value += `id: "${attr.id.value}" - class: "${attr.class.value}"\n`;
         }
         document.getElementById("area2").requestSubmit()
@@ -53,7 +54,7 @@
         <form id="area2" class="child" action="." method="POST">
             {% csrf_token %}
             <textarea name="questoes" id="id_prova" style="visibility: hidden;" {% if form.questoes.value != None %}value="{{ form.questoes.value|stringformat:'s' }}"{% endif %} required></textarea>
-            <input type="button" value="Salvar" onclick="save()">
+            <input type="button" value="Salvar" onclick="save()" id="submit">
         </form>
       </div>
 
