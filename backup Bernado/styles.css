@@ -1,0 +1,95 @@
+.tipo1 {
+  background-color: #2148f3;
+  color: #fff;
+}
+
+.tipo2{
+  background-color: #f34121;
+  color: #fff;
+}
+
+.tipo3{
+  background-color: #21f32c;
+}
+
+.modelo {
+  position: absolute;
+  z-index: 9;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.questao {
+	position: absolute;
+	z-index: 9;
+	border: 1px solid #d3d3d3;
+	text-align: center;
+  /* left: 50%;
+  transform: translate(-50%); */
+  }
+
+.thing {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+#submit{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+body{
+    background-color: #5ce1e6;
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 23%;
+    position: fixed;
+    z-index: 1;
+    top: 1;
+    left: 1;
+    background-color: #03989e;
+    padding-top: 20px;
+  }
+
+
+  .sidenav2 {
+    height: 100%;
+    width: 23%;
+    position: fixed;
+    z-index: 1;
+    top: 1;
+    background-color: #03989e;
+    padding-top: 20px;
+    margin-left: 77%;
+  }
+
+  .child {
+    width: 43%;
+    height: 85%;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 15%;
+    left: 30%;
+    margin: -20px 0 0 -20px; 
+  }
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
