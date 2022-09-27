@@ -9,6 +9,20 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>{% include 'elefante/partials/styles.css' %}</style>
     <script>
+      const modelos = {
+        'tipo1': `<div class="a">
+        <label for="calculo">2+2 é igual a:</label>
+        <select name="calculo" id="calculo">
+          <option value="5">5</option>
+          <option value="22">22</option>
+          <option value="0">0</option>
+          <option value="4">4</option>
+        </select>
+        <label for="calculo"> é o resultado</label>
+        </div>`,
+        'tipo2': `<div>undefined</div>`,
+        'tipo3': `<div>undefined</div>`
+      }
       function save() {
         let coisa = document.getElementById("id_prova")
         let questoes = document.getElementsByClassName("questao")
@@ -18,6 +32,23 @@
             coisa.value += `id: "${attr.id.value}" - class: "${attr.class.value}"\n`;
         }
         document.getElementById("area2").requestSubmit()
+      }
+
+      function mais(tipo, nome_id){
+        document.getElementById(nome_id).innerHTML += modelos[tipo]
+        document.getElementById(nome_id + '_button_mais').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
+        document.getElementById(nome_id + '_button_menos').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
+      }
+
+      function menos(nome_id){
+        let documento = document.getElementById(nome_id).children
+        if (documento.length < 4){
+          document.getElementById(nome_id).remove()
+        }else {
+        documento[documento.length - 1].remove()
+        document.getElementById(nome_id + '_button_mais').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
+        document.getElementById(nome_id + '_button_menos').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
+        }
       }
     </script>
     <script type="module">{% include 'elefante/partials/script.js' %}</script>

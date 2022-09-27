@@ -55,14 +55,32 @@ function dragElement(elmnt) {
     // stop moving when mouse button is released:
     let limite = document.getElementById("area2").getBoundingClientRect()
     let rect = elmnt.getBoundingClientRect()
+    const modelos = {
+      'tipo1': `<div class="a">
+      <label for="calculo">2+2 é igual a:</label>
+      <select name="calculo" id="calculo">
+        <option value="5">5</option>
+        <option value="22">22</option>
+        <option value="0">0</option>
+        <option value="4">4</option>
+      </select>
+      <label for="calculo"> é o resultado</label>
+    </div>`,
+      'tipo2': `<div>undefined</div>`,
+      'tipo3': `<div>undefined</div>`,
+    }
     if (rect['bottom'] < limite['bottom'] && rect['top'] > limite['top'] && rect['right'] < limite['right'] && rect['left'] > limite['left']){
       let newItems = document.getElementById("area2")
       let newEl = elmnt.cloneNode(true)
       newEl.style.top =  ((newItems.childElementCount - 3) * 50) + 'px'
-      newEl.style.left = (limite.width / 2) - (rect.width / 2) + 'px'
-      newEl.className = `questao tipo${newEl.id.slice(-1)}`
+      newEl.style.left = '0'
+      newEl.style.right = '0'
+      newEl.style.margin = '0 auto'
+      let tipo = 'tipo' + newEl.id.slice(-1)
       newEl.id = 'questao' + (newItems.childElementCount - 2)
-      newEl.innerHTML = 'Question ' + (newItems.childElementCount - 2)
+      newEl.className = `questao ${tipo}`
+      newEl.innerHTML = `<div>${modelos[`${tipo}`]}</div>` + `<input id="${newEl.id}_button_mais" style="position: absolute; right: 0; top: 0; height: 24px; width: 24px" type="button" value="+" onclick="mais('${tipo}', '${newEl.id}')">`
+      newEl.innerHTML += `<input id="${newEl.id}_button_menos" style="position: absolute; right: 24px; top: 0; height: 24px; width: 24px" type="button" value="-" onclick="menos('${newEl.id}')">`
 
       newItems.appendChild(newEl)
     }
@@ -73,13 +91,11 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
 
-    for (let items in document.getElementsByClassName("questao")) {
-      dragOrder(document.getElementsByClassName("questao")[items]);
-    }
+    // for (let items in document.getElementsByClassName("questao")) {
+    //   dragOrder(document.getElementsByClassName("questao")[items]);
+    // }
   }
 }
-
-
 
 
 
