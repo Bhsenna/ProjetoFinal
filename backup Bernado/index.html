@@ -35,23 +35,21 @@
       }
 
       function mais(tipo, nome_id){
-        document.getElementById(nome_id).innerHTML += modelos[tipo]
-        document.getElementById(nome_id + '_button_mais').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
-        document.getElementById(nome_id + '_button_menos').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
+        modelo = document.createElement('div')
+        modelo.innerHTML += modelos[tipo]
+        document.getElementById(nome_id).appendChild(modelo)
       }
 
       function menos(nome_id){
         let documento = document.getElementById(nome_id).children
-        if (documento.length < 4){
+        if (documento.length < 2){
           document.getElementById(nome_id).remove()
         }else {
         documento[documento.length - 1].remove()
-        document.getElementById(nome_id + '_button_mais').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
-        document.getElementById(nome_id + '_button_menos').style.top = (24 * (document.getElementById(nome_id).childElementCount - 3)) + 'px'
         }
       }
     </script>
-    <script type="module">{% include 'elefante/partials/script.js' %}</script>
+    <script type="module">{}{% include 'elefante/partials/script.js' %}</script>
 </head>
 <body>
     
@@ -65,17 +63,17 @@
       </div>
     
       <div class="sidenav">
-        <div id="1" class="modelo">
+        <div id="model1" class="modelo">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
             <div id="1header" class="thing">Modelo 1</div>
         </div>
     
-        <div id="2" class="modelo" style="top: 70px;">
+        <div id="model2" class="modelo" style="top: 70px;">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
             <div id="2header" class="thing">Modelo 2</div>
         </div>
     
-        <div id="3" class="modelo" style="top: 120px;">
+        <div id="model3" class="modelo" style="top: 120px;">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
             <div id="3header" class="thing">Modelo 3</div>
         </div>

@@ -55,20 +55,20 @@ function dragElement(elmnt) {
     // stop moving when mouse button is released:
     let limite = document.getElementById("area2").getBoundingClientRect()
     let rect = elmnt.getBoundingClientRect()
-    const modelos = {
-      'tipo1': `<div class="a">
-      <label for="calculo">2+2 é igual a:</label>
-      <select name="calculo" id="calculo">
-        <option value="5">5</option>
-        <option value="22">22</option>
-        <option value="0">0</option>
-        <option value="4">4</option>
-      </select>
-      <label for="calculo"> é o resultado</label>
-    </div>`,
-      'tipo2': `<div>undefined</div>`,
-      'tipo3': `<div>undefined</div>`,
-    }
+    // const modelos = {
+    //   'tipo1': `<div>
+    //   <label for="calculo">2+2 é igual a:</label>
+    //   <select name="calculo" id="calculo">
+    //     <option value="5">5</option>
+    //     <option value="22">22</option>
+    //     <option value="0">0</option>
+    //     <option value="4">4</option>
+    //   </select>
+    //   <label for="calculo"> é o resultado</label>
+    // </div>`,
+    //   'tipo2': `<div>undefined</div>`,
+    //   'tipo3': `<div>undefined</div>`,
+    // }
     if (rect['bottom'] < limite['bottom'] && rect['top'] > limite['top'] && rect['right'] < limite['right'] && rect['left'] > limite['left']){
       let newItems = document.getElementById("area2")
       let newEl = elmnt.cloneNode(true)
@@ -77,12 +77,11 @@ function dragElement(elmnt) {
       newEl.style.right = '0'
       newEl.style.margin = '0 auto'
       let tipo = 'tipo' + newEl.id.slice(-1)
-      newEl.id = 'questao' + (newItems.childElementCount - 2)
+      newEl.id = (newItems.childElementCount - 2)
       newEl.className = `questao ${tipo}`
-      newEl.innerHTML = `<div>${modelos[`${tipo}`]}</div>` + `<input id="${newEl.id}_button_mais" style="position: absolute; right: 0; top: 0; height: 24px; width: 24px" type="button" value="+" onclick="mais('${tipo}', '${newEl.id}')">`
-      newEl.innerHTML += `<input id="${newEl.id}_button_menos" style="position: absolute; right: 24px; top: 0; height: 24px; width: 24px" type="button" value="-" onclick="menos('${newEl.id}')">`
+      newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><input id="enunciado" style="height: 24px; width: fit-content;">` + `<input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais('${tipo}', '${newEl.id}')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos('${newEl.id}')"> </div>`
 
-      newItems.appendChild(newEl)
+      newItems.prepend(newEl)
     }
 
     elmnt.style.top = originalTop + "px";
