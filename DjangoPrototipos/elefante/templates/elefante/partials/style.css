@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2? family= Justo & family= Sarala:wght@400;700 & display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    font-size: 100%;
+    background-color: #5ce1e6;
+}
+
+.cabeçalho{
+    height: 11vh;
+    max-width: 100%;
+    flex-direction: row;
+    background-color: #5ba3f8;
+}
+
+.logo img{
+    width: 4%;
+    height: 6vh;
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+
+
+.botoes{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-around;
+    bottom: 45px;
+    gap: 60rem;
+}
+
+.salvar {
+    background-color: #5ce1e6;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    width: 60px;
+    font-family: Arial;
+    font-size: small;
+    text-align: center;
+    padding: 10px;
+}
+
+.compartilhar{
+    background-color: #5ce1e6;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    width: 95px;
+    height: 40px;
+}
+
+.questoes{
+    position: fixed;
+    width: 23%;
+    height: 100%;
+    background-color: #03989e;
+    z-index: 1;
+    position: fixed;
+}
+
+.resposta{
+    height: 100%;
+    width: 23%;
+    position: fixed;
+    z-index: 1;
+    background-color: #03989e;
+    padding-top: 20px;
+    margin-left: 77%;
+  }
+
+  .criacao {
+    width: 40%;
+    height: 80%;
+    background-color: #fff;
+    position: fixed;
+    top: 18%;
+    left: 31%;
+    margin: -20px 0 0 -20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .pesquisar input{
+    height: 40px;
+    width: 60%;
+    border-radius: 5px;
+    border: none;
+    margin-left: 15%;
+    margin-top: 3%;
+    outline: none;
+  }
+
+  .pesquisar i{
+    color: #fff;
+    font-size: 27px;
+    margin-left: 3%;
+  }
+

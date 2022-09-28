@@ -14,22 +14,43 @@
           justify-content: center;
         }
       </style>
+      <script>
+        function checkAndAddOption(selectElement) {
+      if (selectElement.value === "new") {
+        var opt = document.createElement('option');
+        valor = prompt('Enter a name for the new thing:')
+        opt.value = valor;
+        opt.innerHTML = valor;
+        selectElement.appendChild(opt);
+        selectElement.value = valor
+      }
+      if (selectElement.value === "remove") {
+        let documento = selectElement.children
+        if (documento.length < 3){
+          {}
+        }else {
+          documento[documento.length - 1].remove()
+          selectElement.value = documento[documento.length - 1].value
+        }
+      }
+    }
+      </script>
 </head>
 <body>
 
 <div class="a">
-
-  <label for="calculo">2+2 é igual a:</label>
-  <select name="calculo" id="calculo">
-    <option value="5">5</option>
-    <option value="22">22</option>
-    <option value="0">0</option>
-    <option value="4">4</option>
+  <label for="calculo"> <input type="text" name="" id=""> </label>
+  <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+    <option value="new">novo</option>
+    <option value="remove">remover</option>
   </select>
+  <a href=""></a>
   <label for="calculo"> é o resultado</label>
   <!-- <a>é o resultado</a> -->
+  <!-- <br>
+  <input type="button" value="+"> -->
 </div>
-
+<!-- <input type="button" value="+"> -->
 
 </body>
 </html>
