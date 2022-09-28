@@ -1,9 +1,11 @@
 .tipo1 {
   background-color: #2148f3;
+  color: #fff;
 }
 
 .tipo2{
   background-color: #f34121;
+  color: #fff;
 }
 
 .tipo3{
@@ -15,15 +17,18 @@
   z-index: 9;
   border: 1px solid #d3d3d3;
   text-align: center;
-  width: 142.1999969482422px;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .questao {
-	position: absolute;
+	/* position: absolute; */
 	z-index: 9;
 	border: 1px solid #d3d3d3;
 	text-align: center;
-	width: 142.1999969482422px;
+  /* left: 50%;
+  transform: translate(-50%); */
   }
 
 .thing {
