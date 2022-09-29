@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+                background-color: #5ce1e6;
+            }
+
+        .a{display: flex;}
+        .b{display: flex;}
+        .c{display: flex;}
+        .d{display: flex;}
+
+
+        .pergunta{
+            display: block;
+            width: 10%;
+        }
+        .selecao{
+            margin-left: 5%;
+            display: inline-block;
+        }
+        #opcao{
+            padding: 7%;
+        }
+        .resposta{
+            margin-left: 1%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <div class="a">
+            <div class="pergunta">a) Bernado é:</div>
+            <div class="selecao">
+                <select name="opcao" id="opcao">
+                    <option value="" hidden selected>?</option>
+                    <option value="a">a</option>
+                    <option value="b" disabled>b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+            </div>
+            <div class="resposta"><label for="resposta">Alto</label></div>
+        </div>
+
+
+        <div class="b">
+            <div class="pergunta">b) Afía é:</div>
+            <div class="selecao">
+                <select name="opcao" id="opcao">
+                    <option value="" hidden selected>?</option>
+                    <option value="a" disabled>a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+            </div>
+            <div class="resposta"><label for="resposta">Dedicado</label></div>
+        </div>
+
+
+
+        <div class="c">
+            <div class="pergunta">c) Gustavo é:</div>
+            <div class="selecao">
+                <select name="opcao" id="opcao">
+                    <option value="" hidden selected>?</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c" disabled>c</option>
+                    <option value="d">d</option>
+                </select>
+            </div>
+            <div class="resposta"><label for="resposta">Inteligente</label></div>
+        </div>
+
+
+
+        <div class="d">
+            <div class="pergunta">d) Nicolas é:</div>
+            <div class="selecao">
+                <select name="opcao" id="opcao">
+                    <option value="" hidden selected>?</option>
+                    <option value="a" disabled>a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+            </div>
+            <div class="resposta"><label for="resposta">Esperta</label></div>
+        </div>
+
+    </div>
+
+    <button id="reset" onclick="javascript:location.reload(true)" type="button">Resetar questoes</button>
+
+</body>
+</html>
