@@ -94,3 +94,20 @@
   border-radius: 50%;
   background: rgb(255, 255, 255);
 }
+
+.pergunta{
+  /* display: block; */
+  display:inline;
+}
+.selecao{
+  margin-left: 15%;
+  /* display: inline-block; */
+  display:inline;
+}
+#opcao{
+  /* padding: 7%; */
+}
+.opcao{
+  margin-left: 1%;
+  display:inline;
+}

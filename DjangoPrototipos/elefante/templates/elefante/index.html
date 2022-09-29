@@ -25,6 +25,7 @@
 
     function mais(tipo, nome_id){
       let modelo = document.createElement('li')
+      modelo.id = 'coisa1'
       const modelos = {
       'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
   <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
@@ -56,10 +57,25 @@
             </label>
             <label style="margin-left: 13.788px;"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
 
-      'tipo3': `undefined`,
+      'tipo3': `<div class="pergunta"> <input type="text" name="" id=""> </div>
+            <div class="selecao">
+                <select name="opcao" id="opcao">
+                    <option value="" selected>?</option>
+                    <option value="a">a</option>
+                    <option value="b" disabled>b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                </select>
+            </div>
+            <div class="opcao"><label for="resposta"><input type="text" name="" id=""></label></div>`,
     }
       modelo.innerHTML += `${modelos[tipo]}`
       document.getElementById(nome_id).appendChild(modelo)
+      coisas = document.querySelector('#coisa1::marker')
+      console.log(coisas)
+      // for (let i = 0; i < coisas.length; i++){
+      //   console.log(coisas[i].dataset)
+      // }
     }
 
     function menos(nome_id){
