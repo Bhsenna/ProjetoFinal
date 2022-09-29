@@ -6,5 +6,5 @@ class Cadastro(forms.ModelForm):
     class Meta:
         model = Paper
         fields = [
-            'questoes',
+            # 'questoes',
         ]
