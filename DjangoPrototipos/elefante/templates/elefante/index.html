@@ -11,37 +11,7 @@
   <style>{% include 'elefante/partials/styles.css' %}</style>
   <script src="https://kit.fontawesome.com/5dd5fe0132.js" crossorigin="anonymous"></script>
   <script>
-    const modelos = {
-      'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
-  <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
-    <option value="new">novo</option>
-    <option value="remove">remover</option>
-  </select>
-  <label for="calculo"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
-
-      'tipo2': `
-            <label> <input type="text" name="" id=""> </label>
-            <label class="container"> Dia 17
-                <input type="radio" checked="checked" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">Dia 25
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">Dia 12
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">João
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
-            <label style="margin-left: 13.788px;"> <input type="text" name="" id="" placeholder="opcional"> </label>
-        `,
-
-      'tipo3': `undefined`,
-    }
+    
     function save() {
       let coisa = document.getElementById("id_prova")
       let questoes = document.getElementsByClassName("questao")
@@ -54,7 +24,40 @@
     }
 
     function mais(tipo, nome_id){
-      modelo = document.createElement('li')
+      let modelo = document.createElement('li')
+      const modelos = {
+      'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
+  <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+    <option value="new">novo</option>
+    <option value="remove">remover</option>
+  </select>
+  <label for="calculo"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
+
+      'tipo2': `<label> <input type="text" name="" id=""> </label>
+            <label class="container"> 
+                <input type="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
+                <span class="checkmark"></span>
+            </label>
+            <label style="margin-left: 13.788px;"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
+
+      'tipo3': `undefined`,
+    }
       modelo.innerHTML += `${modelos[tipo]}`
       document.getElementById(nome_id).appendChild(modelo)
     }
