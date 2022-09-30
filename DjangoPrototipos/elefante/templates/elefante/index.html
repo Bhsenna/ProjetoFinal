@@ -25,6 +25,7 @@
 
     function mais(tipo, nome_id){
       let modelo = document.createElement('li')
+      modelo.id = 'coisa1'
       const modelos = {
       'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
   <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
@@ -56,10 +57,26 @@
             </label>
             <label style="margin-left: 13.788px;"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
 
-      'tipo3': `undefined`,
+      'tipo3': `<div class="pergunta"> <input type="text" name="" id=""> </div>
+            <div class="selecao">
+                <select name="opcao" id="opcao" class="opcoes${nome_id}">
+                    <option value="" selected>?</option>
+                </select>
+            </div>
+            <div class="opcao"><label for="resposta"><input type="text" name="" id=""></label></div>`,
     }
       modelo.innerHTML += `${modelos[tipo]}`
       document.getElementById(nome_id).appendChild(modelo)
+      
+      if (tipo === 'tipo3'){
+        opcoes = document.getElementsByClassName(`opcoes${nome_id}`)
+        letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        for (var i=0; i < opcoes.length; i++){
+          for (var j=(opcoes[i].length - 1); j < opcoes.length; j++){
+            opcoes[i].innerHTML += `<option name="op" value="${letras[j]}">${letras[j]}</option>`
+          }
+        }
+      }
     }
 
     function menos(nome_id){
