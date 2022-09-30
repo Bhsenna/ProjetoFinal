@@ -55,20 +55,6 @@ function dragElement(elmnt) {
     // stop moving when mouse button is released:
     let limite = document.getElementById("criacao").getBoundingClientRect()
     let rect = elmnt.getBoundingClientRect()
-    // const modelos = {
-    //   'tipo1': `<div>
-    //   <label for="calculo">2+2 é igual a:</label>
-    //   <select name="calculo" id="calculo">
-    //     <option value="5">5</option>
-    //     <option value="22">22</option>
-    //     <option value="0">0</option>
-    //     <option value="4">4</option>
-    //   </select>
-    //   <label for="calculo"> é o resultado</label>
-    // </div>`,
-    //   'tipo2': `<div>undefined</div>`,
-    //   'tipo3': `<div>undefined</div>`,
-    // }
     if (rect['bottom'] < limite['bottom'] && rect['top'] > limite['top'] && rect['right'] < limite['right'] && rect['left'] > limite['left']){
       let newItems = document.getElementById("criacao")
       let newEl = elmnt.cloneNode(true)
@@ -83,6 +69,9 @@ function dragElement(elmnt) {
       newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado" style="width: calc(100% - 48px);"></textarea>` + `<input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais('${tipo}', '${newEl.id}list')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos('${newEl.id}list')"></div><ol type="a" id="${newEl.id}list">`
 
       newItems.prepend(newEl)
+
+      let novo = document.getElementById(newEl.id)
+      document.getElementsByName("csrfmiddlewaretoken")[0].before(novo)
     }
 
     elmnt.style.top = originalTop + "px";

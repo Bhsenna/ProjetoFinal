@@ -151,8 +151,10 @@
 
         <form id="criacao" class="criacao" action="." method="POST">
           {% csrf_token %}
-          <textarea name="questoes" id="id_prova" style="visibility: hidden;" {% if form.questoes.value != None %}value="{{ form.questoes.value|stringformat:'s' }}"{% endif %} required></textarea>
-          <input type="submit" id="submit-form" onclick="save()" style="visibility: hidden;" />
+          <div style="display:none;">
+            {{form|crispy}}
+          </div>
+          <input type="submit" id="submit-form" onclick="save()" style="display:none" />
         </form>
 
         <div class="resposta"></div>
