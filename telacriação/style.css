@@ -16,7 +16,7 @@ body{
     height: 11vh;
     max-width: 100%;
     flex-direction: row;
-    background-color: #5ba3f8;
+    background-color: #08b8be;
 }
 
 .logo img{
@@ -38,7 +38,7 @@ body{
 }
 
 .salvar {
-    background-color: #5ce1e6;
+    background-color: #51cdd1;
     color: #fff;
     border: none;
     border-radius: 2px;
@@ -46,7 +46,7 @@ body{
 }
 
 .compartilhar{
-    background-color: #5ce1e6;
+    background-color: #51cdd1;
     color: #fff;
     border: none;
     border-radius: 2px;
@@ -58,7 +58,7 @@ body{
     position: fixed;
     width: 23%;
     height: 100%;
-    background-color: #03989e;
+    background-color: #49b6e0;
     z-index: 1;
     position: fixed;
 }
@@ -68,7 +68,7 @@ body{
     width: 23%;
     position: fixed;
     z-index: 1;
-    background-color: #03989e;
+    background-color: #49b6e0;
     padding-top: 20px;
     margin-left: 77%;
   }
