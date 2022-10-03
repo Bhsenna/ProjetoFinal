@@ -16,13 +16,47 @@
       // let coisa = document.getElementById("id_prova")
       let questoes = document.getElementsByClassName("questao")
       for (var i=0; i < questoes.length; i++) {
-        document.getElementById('id_tipo_questao').value = questoes[i].className.split(" ")[1]
+        let tipo = questoes[i].className.split(" ")[1]
+        document.getElementById('id_tipo_questao').value = tipo
         document.getElementById('id_numero_questao').value = i + 1
         document.getElementById('id_enunciado').value = questoes[i].childNodes[0].childNodes[0].value
 
         let children = questoes[i].getElementsByClassName("linha")
         for (var j=0; j < children.length; j++){
+          letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+          document.getElementById('id_letra_questao').value = letras[j]
+          document.getElementById('id_texto1').value = children[j].getElementsByClassName('texto1')[0].value
+          document.getElementById('id_texto2').value = children[j].getElementsByClassName('texto2')[0].value
 
+          if (tipo == 'tipo1'){
+            let select = children[j].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
+
+            let incorretas = ''
+            let alternativas = select.getElementsByClassName('alternativas')
+            for (var k=0; k < alternativas.length; k++){
+              if (alternativas[k].value != marcada){
+                incorretas += `${alternativas[k].value}, `
+              }}
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo == 'tipo2'){
+            let select = children[j].getElementsByClassName('container')
+            
+            let incorretas = ''
+            for (var k=0; k < select.length; k++){
+              let radios = select[k].getElementsByClassName('radio')[0]
+              let textos = select[k].getElementsByTagName('textarea')[0]
+              alternativa = radios
+              if (alternativa.checked){
+                document.getElementById('id_alt_marcada').value = textos.value
+              }else {
+                incorretas += `${textos.value}, `
+              }}
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo == 'tipo3'){
+
+          }
         }
       }
 
@@ -34,43 +68,41 @@
       let modelo = document.createElement('li')
       modelo.className = 'linha'
       const modelos = {
-      'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
+      'tipo1': `<label> <input type="text" class="texto1"> </label>
   <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
-    <option value="new">novo</option>
-    <option value="remove">remover</option>
-  </select>
-  <label for="calculo"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
+<option value="new">novo</option>
+<option value="remove">remover</option>
+</select>
+  <label for="calculo"> <input type="text" class="texto2" placeholder="opcional"> </label>`,
 
-      'tipo2': `<label> <input type="text" name="" id=""> </label>
+      'tipo2': `<label> <input type="text" class="texto1"></label>
             <label class="container"> 
-                <input type="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
                 <span class="checkmark"></span>
             </label>
             <label class="container"> 
-                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
                 <span class="checkmark"></span>
             </label>
             <label class="container"> 
-                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
                 <span class="checkmark"></span>
             </label>
             <label class="container"> 
-                <input type="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
                 <span class="checkmark"></span>
             </label>
-            <label style="margin-left: 13.788px;"> <input type="text" name="" id="" placeholder="opcional"> </label>`,
+            <label style="margin-left: 13.788px;"> <input type="text" class="texto2" placeholder="opcional"> </label>`,
 
-      'tipo3': `<div class="pergunta"> <input type="text" name="" id=""> </div>
+      'tipo3': `<div class="pergunta"> <input type="text" class="texto1"> </div>
             <div class="selecao">
-                <select name="opcao" id="opcao" class="opcoes${nome_id}">
-                    <option value="" selected>?</option>
-                </select>
+                <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
             </div>
-            <div class="opcao"><label for="resposta"><input type="text" name="" id=""></label></div>`,
+            <div class="opcao"><label for="resposta"> <input type="text" class="texto2" placeholder="opcional"> </label></div>`,
     }
       modelo.innerHTML += `${modelos[tipo]}`
       document.getElementById(nome_id).appendChild(modelo)
@@ -80,18 +112,25 @@
         letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         for (var i=0; i < opcoes.length; i++){
           for (var j=(opcoes[i].length - 1); j < opcoes.length; j++){
-            opcoes[i].innerHTML += `<option name="op" value="${letras[j]}">${letras[j]}</option>`
+            opcoes[i].innerHTML += `<option name="op" class="${letras[j]}" value="${letras[j]}" onclick="questao3(this)">${letras[j]}</option>`
           }
         }
       }
     }
 
-    function menos(nome_id){
+    function menos(tipo, nome_id){
       let documento = document.getElementById(`${nome_id}list`).children
       if (documento.length < 1){
         document.getElementById(nome_id).remove()
       }else {
       documento[documento.length - 1].remove()
+      }
+
+      if (tipo === 'tipo3'){
+        opcoes = document.getElementsByClassName(`opcoes${nome_id}list`)
+        for (var i=0; i < opcoes.length; i++){
+          opcoes[i].childNodes[opcoes[i].childNodes.length - 1].remove()
+        }
       }
     }
     
@@ -101,6 +140,7 @@
         valor = prompt('Enter a name for the new thing:')
         opt.value = valor;
         opt.innerHTML = valor;
+        opt.className = 'alternativas';
         selectElement.appendChild(opt);
         selectElement.value = valor
       }
@@ -114,6 +154,27 @@
         }
       }
     }
+
+    function questao3(selectElement){
+      siblings = selectElement.parentElement.childNodes
+      for (var i=1; i < siblings.length; i++){
+        if (siblings[i].attributes.name.value == 'op' && siblings[i] != selectElement){
+          ops = document.getElementsByClassName(siblings[i].className)
+          for (var j=0; j < ops.length; j++){
+            ops[j].disabled = siblings[i].disabled
+          }
+        }
+      }
+
+      if (selectElement.value != '?'){
+        opcs = document.getElementsByClassName(selectElement.className)
+        for (var i=0; i < opcs.length; i++){
+          if (opcs[i] != selectElement){
+            opcs[i].disabled = true
+          }
+        }
+      }
+      }
   </script>
   <script type="module">{}{% include 'elefante/partials/script.js' %}</script>
 </head>
@@ -157,14 +218,14 @@
 
         <form id="criacao" class="criacao" action="." method="POST">
           {% csrf_token %}
-          <!-- <div style="display:none;"> -->
+          <div style="display:none;">
             {{form|crispy}}
             <script>
               document.getElementById("id_id_prova").value = '{{prova.id}}'
               document.getElementById("id_tipo_user").value = 'C'
               document.getElementById("id_usuario").value = '1'
             </script>
-          <!-- </div> -->
+          </div>
         </form>
 
         <div class="resposta"></div>
