@@ -13,19 +13,26 @@
   <script>
     
     function save() {
-      let coisa = document.getElementById("id_prova")
+      // let coisa = document.getElementById("id_prova")
       let questoes = document.getElementsByClassName("questao")
       for (var i=0; i < questoes.length; i++) {
-          let attr = questoes[i].attributes
-          console.log(document.getElementById(`${attr.id.value}`).innerHTML)
-          coisa.value += `id: "${attr.id.value}" - class: "${attr.class.value}"\n`;
+        document.getElementById('id_tipo_questao').value = questoes[i].className.split(" ")[1]
+        document.getElementById('id_numero_questao').value = i + 1
+        document.getElementById('id_enunciado').value = questoes[i].childNodes[0].childNodes[0].value
+
+        let children = questoes[i].getElementsByClassName("linha")
+        for (var j=0; j < children.length; j++){
+
+        }
       }
-      document.getElementById("area2").requestSubmit()
+
+      // document.getElementById("criacao").requestSubmit()
     }
 
     function mais(tipo, nome_id){
+      nome_id = nome_id + 'list'
       let modelo = document.createElement('li')
-      modelo.id = 'coisa1'
+      modelo.className = 'linha'
       const modelos = {
       'tipo1': `<label for="calculo"> <input type="text" name="" id=""> </label>
   <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
@@ -80,9 +87,9 @@
     }
 
     function menos(nome_id){
-      let documento = document.getElementById(nome_id).children
+      let documento = document.getElementById(`${nome_id}list`).children
       if (documento.length < 1){
-        document.getElementById(nome_id.slice(0, 1)).remove()
+        document.getElementById(nome_id).remove()
       }else {
       documento[documento.length - 1].remove()
       }
@@ -120,8 +127,7 @@
           </a>
         </div>
         <div class="botoes">
-          <!-- <button class="salvar" for="submit-form" tabindex="0">Salvar</button> -->
-          <label class="salvar" for="submit-form" tabindex="0">Salvar</label>
+          <input type="button" class="salvar" value="Salvar" onclick="save()" id="submit">
           <button class="compartilhar">Compartilhar</button>
         </div>
      </div>
@@ -151,8 +157,14 @@
 
         <form id="criacao" class="criacao" action="." method="POST">
           {% csrf_token %}
-          <textarea name="questoes" id="id_prova" style="visibility: hidden;" {% if form.questoes.value != None %}value="{{ form.questoes.value|stringformat:'s' }}"{% endif %} required></textarea>
-          <input type="submit" id="submit-form" onclick="save()" style="visibility: hidden;" />
+          <!-- <div style="display:none;"> -->
+            {{form|crispy}}
+            <script>
+              document.getElementById("id_id_prova").value = '{{prova.id}}'
+              document.getElementById("id_tipo_user").value = 'C'
+              document.getElementById("id_usuario").value = '1'
+            </script>
+          <!-- </div> -->
         </form>
 
         <div class="resposta"></div>
