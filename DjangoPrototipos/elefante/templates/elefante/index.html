@@ -55,7 +55,18 @@
               }}
             document.getElementById('id_alt_erradas').value = incorretas
           }else if (tipo == 'tipo3'){
+            let select = children[j].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
 
+            let incorretas = ''
+            let alternativas = select.querySelectorAll('[name="op"]')
+            console.log(alternativas)
+            for (var k=0; k < alternativas.length; k++){
+              if (alternativas[k].value != marcada){
+                incorretas += `${alternativas[k].value}, `
+              }}
+            document.getElementById('id_alt_erradas').value = incorretas
           }
         }
       }
@@ -218,14 +229,14 @@
 
         <form id="criacao" class="criacao" action="." method="POST">
           {% csrf_token %}
-          <div style="display:none;">
+          <!-- <div style="display:none;"> -->
             {{form|crispy}}
             <script>
               document.getElementById("id_id_prova").value = '{{prova.id}}'
               document.getElementById("id_tipo_user").value = 'C'
               document.getElementById("id_usuario").value = '1'
             </script>
-          </div>
+          <!-- </div> -->
         </form>
 
         <div class="resposta"></div>
