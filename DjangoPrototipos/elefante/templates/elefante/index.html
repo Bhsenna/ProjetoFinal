@@ -171,8 +171,11 @@
       for (var i=1; i < siblings.length; i++){
         if (siblings[i].attributes.name.value == 'op' && siblings[i] != selectElement){
           ops = document.getElementsByClassName(siblings[i].className)
+          console.log(siblings[i].parentNode.value + '+')
           for (var j=0; j < ops.length; j++){
-            ops[j].disabled = siblings[i].disabled
+            if (ops[j].parentNode.value != siblings[i].value){
+              ops[j].disabled = siblings[i].disabled
+            }
           }
         }
       }
