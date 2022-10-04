@@ -68,10 +68,9 @@
               }}
             document.getElementById('id_alt_erradas').value = incorretas
           }
+          document.getElementById("criacao").requestSubmit()
         }
       }
-
-      // document.getElementById("criacao").requestSubmit()
     }
 
     function mais(tipo, nome_id){
@@ -230,16 +229,16 @@
       </div>
         </div>
 
-        <form id="criacao" class="criacao" action="." method="POST">
+        <form id="criacao" class="criacao" action="/criador-1" method="POST">
           {% csrf_token %}
-          <!-- <div style="display:none;"> -->
+          <div style="display:none;">
             {{form|crispy}}
             <script>
               document.getElementById("id_id_prova").value = '{{prova.id}}'
               document.getElementById("id_tipo_user").value = 'C'
               document.getElementById("id_usuario").value = '1'
             </script>
-          <!-- </div> -->
+          </div>
         </form>
 
         <div class="resposta"></div>
