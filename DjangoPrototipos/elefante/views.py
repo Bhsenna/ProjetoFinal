@@ -5,8 +5,8 @@ from .forms import Cadastro
 # Create your views here.
 
 
-def movel(request, id_prova):
-    prova = get_object_or_404(Prova, id=id_prova)
+def movel(request, link_prova):
+    prova = get_object_or_404(Prova, link=link_prova)
     if request.method == 'GET':
         form = Cadastro()
     else:

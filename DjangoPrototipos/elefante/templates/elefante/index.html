@@ -132,6 +132,14 @@
       let documento = document.getElementById(`${nome_id}list`).children
       if (documento.length < 1){
         document.getElementById(nome_id).remove()
+        questions = document.getElementsByClassName('questao')
+
+        for (i=0; i < questions.length; i++) {
+          questions[i].id = i
+          questions[i].children[1].id = i + 'list'
+          questions[i].children[0].children[1].attributes[4].nodeValue = questions[i].children[0].children[1].attributes[4].nodeValue.slice(0, -3) + i + "')"
+          questions[i].children[0].children[2].attributes[4].nodeValue = questions[i].children[0].children[2].attributes[4].nodeValue.slice(0, -3) + i + "')"
+        }
       }else {
       documento[documento.length - 1].remove()
       }
@@ -229,14 +237,14 @@
       </div>
         </div>
 
-        <form id="criacao" class="criacao" action="/criador-1" method="POST">
+        <form id="criacao" class="criacao" action="" method="POST">
           {% csrf_token %}
           <div style="display:none;">
             {{form|crispy}}
             <script>
               document.getElementById("id_id_prova").value = '{{prova.id}}'
               document.getElementById("id_tipo_user").value = 'C'
-              document.getElementById("id_usuario").value = '1'
+              document.getElementById("id_usuario").value = '{{prova.dono.id}}'
             </script>
           </div>
         </form>

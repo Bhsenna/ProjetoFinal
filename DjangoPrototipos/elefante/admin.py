@@ -4,4 +4,10 @@ from .models import *
 # Register your models here.
 admin.site.register(Paper)
 admin.site.register(DadosCadastro)
-admin.site.register(Prova)
+
+
+class ProvaLink(admin.ModelAdmin):
+    readonly_fields = ['link']
+
+
+admin.site.register(Prova, ProvaLink)
