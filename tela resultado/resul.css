@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-size: 100%;
+    background-color: #5ce1e6;
+}
+.cabeçalho{
+    height: 11vh;
+    max-width: 100%;
+    flex-direction: row;
+    background-color: #08b8be;
+}
+.resultado{
+    width: 60%;
+    height: 90%;
+    background-color: #fff;
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    margin: -20px 0 0 -20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.logo img{
+    width: 4%;
+    height: 6vh;
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+.finalizar{
+    background-color: #51cdd1;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    width: 95px;
+    height: 40px;
+    margin-right: 2%;
+}
+
+.botao{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: right;
+    bottom: 45px;
+    gap: 60rem;
+}
