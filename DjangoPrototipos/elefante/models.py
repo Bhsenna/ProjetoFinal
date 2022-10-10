@@ -22,7 +22,7 @@ class Prova(models.Model):
     link = models.CharField(max_length=20, default=link_gen, unique=True)
 
     def __str__(self):
-        return str(self.dono) + " - " + str(self.id)
+        return str(self.dono) + " - " + str(self.link)
 
 
 class Paper(models.Model):
