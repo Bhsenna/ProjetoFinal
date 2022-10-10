@@ -11,9 +11,9 @@
   <style>{% include 'elefante/partials/styles.css' %}</style>
   <script src="https://kit.fontawesome.com/5dd5fe0132.js" crossorigin="anonymous"></script>
   <script>
-    
     function save() {
       // let coisa = document.getElementById("id_prova")
+      const notification = document.getElementById("notification");
       let questoes = document.getElementsByClassName("questao")
       for (var i=0; i < questoes.length; i++) {
         let tipo = questoes[i].className.split(" ")[1]
@@ -221,10 +221,13 @@
           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
         },
         success:function(){
-          alert('Saved');
-            }
-        })
-      });
+          notification.classList.add("notification-show");
+          setTimeout(function(){
+            notification.classList.remove("notification-show");
+          }, 5000)
+          }
+      })
+    });
     </script>
 </head>
 
@@ -277,7 +280,16 @@
           </div>
         </form>
 
-        <div class="resposta"></div>
+        <div class="resposta">
+          <div id="notification" class="notification">
+            <p>Salvo com sucesso</p>
+            <button id="close" class="notification__close" onclick="notification.classList.remove('notification-show');">
+              <svg viewBox="0 0 352 512" width="100" title="times">
+                <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
+              </svg>
+            </button>
+          </div>
+        </div>
   </main>
 
 
