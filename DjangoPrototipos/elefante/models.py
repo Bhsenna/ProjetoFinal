@@ -50,3 +50,6 @@ class Paper(models.Model):
     alt_marcada = models.TextField()
     alt_erradas = models.TextField()
     correto = models.BooleanField(default=True)
+
+    def alternativas(self):
+        return self.alt_erradas[:-1].split(', ')

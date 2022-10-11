@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>{% include 'elefante/partials/resul.css' %}</style>
+</head>
+<body>
+    <header class="cabeçalho">
+        <div class="conteudo-primario">
+            <div class="logo">
+                <a href="#">
+                <img src="{% static 'elefante/logo.png' %}" alt="logo do site">
+                </a>
+           </div>
+           <div class="botao">
+                <button class="finalizar">Finalizar</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="resultado" id="prova">
+        <ol id="questoes"></ol>
+        <script>
+            var numbers = new Set()
+        </script>
+        {% for paper in papers %}
+            <script>
+                numbers.add({{paper.numero_questao}})
+            </script>
+        {% endfor %}
+        <script>
+            for (question of numbers){
+                questao = document.createElement('li')
+                questao.id = question
+                questao.innerHTML = `<div style="display: flex; flex-wrap: wrap;" id="enunciado${question}"></div><ol class="lista" type="a" id="${question}list">`
+                document.getElementById('questoes').appendChild(questao)
+                {% for paper in papers %}
+                    if ({{paper.numero_questao}} == question){
+                        document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
+                        document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li>{{paper.texto1}}
+                        {% with alts=paper.alternativas %}
+                        {% if paper.tipo_questao == 'tipo1' %}
+                        <select name="calculo" id="calculo" style="margin-left: 21px">
+                            {% for alternativa in alts %}
+                                <option value="a">{{alternativa}}</option>
+                            {% endfor %}
+                        </select>
+                        {% endif %}
+                        {% if paper.tipo_questao == 'tipo2' %}
+                            {% for alternativa in alts %}
+                            <label class="container"> 
+                                <input type="radio" class="radio" name="${questoes}-radio{{paper.letra_questao}}">
+                                {{alternativa}}
+                                <span class="checkmark"></span>
+                            </label>
+                            {% endfor %}
+                        {% endif %}
+                        {%endwith%}
+                        <span class="texto2">{{paper.texto2}}</span></li>`
+                    }
+                {% endfor %}
+            }
+        </script>
+    </div>
+
+
+</body>
+</html>
