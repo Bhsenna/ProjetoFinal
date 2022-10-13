@@ -27,4 +27,4 @@ def resolver(request, link_prova):
         if form.is_valid():
             cadastro = form.save()
             form = Cadastro()
-    return render(request, 'elefante/resultado.html', {'form': form, 'papers': paper})
+    return render(request, 'elefante/resultado.html', {'form': form, 'papers': paper, 'id': prova.id,})
