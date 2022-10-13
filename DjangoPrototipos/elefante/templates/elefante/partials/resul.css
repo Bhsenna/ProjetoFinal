@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-size: 100%;
+    background-color: #5ce1e6;
+}
+.cabeçalho{
+    height: 11vh;
+    max-width: 100%;
+    flex-direction: row;
+    background-color: #08b8be;
+}
+.resultado{
+    width: 60%;
+    height: 90%;
+    background-color: #fff;
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    margin: -20px 0 0 -20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.resultado > * {
+    margin-left: 50px;
+}
+#questoes > * {
+    margin-top: 20px;
+}
+.lista > * {
+    margin-left: 20px;
+}
+.logo img{
+    width: 4%;
+    height: 6vh;
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+.finalizar{
+    background-color: #51cdd1;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    width: 95px;
+    height: 40px;
+    margin-right: 2%;
+}
+
+.botao{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: right;
+    bottom: 45px;
+    gap: 60rem;
+}
+
+.texto2{
+    margin-left: 18px;
+}
+
+.container {
+    /* display: block; */
+    position: relative;
+    padding-left: 21px;
+    /* margin-top: 5px; */
+    margin-left: 13.788px;
+    cursor: pointer;
+    /* font-size: 22px; */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    max-width: fit-content;
+  }
+  
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  
+  }
+  
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: rgb(180, 180, 180);
+    border-radius: 50%;
+  }
+  
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .container input:checked ~ .checkmark:after {
+    display: inline;
+  }
+  
+  .container .checkmark:after {
+    top: 5.4px;
+    left: 5.4px;
+    width: 4.8px;
+    height: 4.8px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+  }
+  

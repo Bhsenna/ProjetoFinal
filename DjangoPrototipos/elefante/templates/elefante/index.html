@@ -11,9 +11,9 @@
   <style>{% include 'elefante/partials/styles.css' %}</style>
   <script src="https://kit.fontawesome.com/5dd5fe0132.js" crossorigin="anonymous"></script>
   <script>
-    
     function save() {
       // let coisa = document.getElementById("id_prova")
+      const notification = document.getElementById("notification");
       let questoes = document.getElementsByClassName("questao")
       for (var i=0; i < questoes.length; i++) {
         let tipo = questoes[i].className.split(" ")[1]
@@ -132,6 +132,14 @@
       let documento = document.getElementById(`${nome_id}list`).children
       if (documento.length < 1){
         document.getElementById(nome_id).remove()
+        questions = document.getElementsByClassName('questao')
+
+        for (i=0; i < questions.length; i++) {
+          questions[i].id = i
+          questions[i].children[1].id = i + 'list'
+          questions[i].children[0].children[1].attributes[4].nodeValue = questions[i].children[0].children[1].attributes[4].nodeValue.slice(0, -3) + i + "')"
+          questions[i].children[0].children[2].attributes[4].nodeValue = questions[i].children[0].children[2].attributes[4].nodeValue.slice(0, -3) + i + "')"
+        }
       }else {
       documento[documento.length - 1].remove()
       }
@@ -190,6 +198,37 @@
       }
   </script>
   <script type="module">{}{% include 'elefante/partials/script.js' %}</script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(document).on('submit','#criacao',function(e){
+      e.preventDefault();
+      $.ajax({
+        type:'POST',
+        url:'{% url "home" prova.link %}',
+        data:
+        {
+          usuario:$("#id_usuario").val(),
+          tipo_user:$("#id_tipo_user").val(),
+          id_prova:$("#id_id_prova").val(),
+          tipo_questao:$("#id_tipo_questao").val(),
+          numero_questao:$("#id_numero_questao").val(),
+          enunciado:$("#id_enunciado").val(),
+          letra_questao:$("#id_letra_questao").val(),
+          texto1:$("#id_texto1").val(),
+          texto2:$("#id_texto2").val(),
+          alt_marcada:$("#id_alt_marcada").val(),
+          alt_erradas:$("#id_alt_erradas").val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        success:function(){
+          notification.classList.add("notification-show");
+          setTimeout(function(){
+            notification.classList.remove("notification-show");
+          }, 5000)
+          }
+      })
+    });
+    </script>
 </head>
 
 <body>
@@ -229,19 +268,28 @@
       </div>
         </div>
 
-        <form id="criacao" class="criacao" action="/criador-1" method="POST">
+        <form id="criacao" class="criacao" action="" method="POST">
           {% csrf_token %}
           <div style="display:none;">
             {{form|crispy}}
             <script>
               document.getElementById("id_id_prova").value = '{{prova.id}}'
               document.getElementById("id_tipo_user").value = 'C'
-              document.getElementById("id_usuario").value = '1'
+              document.getElementById("id_usuario").value = '{{prova.dono.id}}'
             </script>
           </div>
         </form>
 
-        <div class="resposta"></div>
+        <div class="resposta">
+          <div id="notification" class="notification">
+            <p>Salvo com sucesso</p>
+            <button id="close" class="notification__close" onclick="notification.classList.remove('notification-show');">
+              <svg viewBox="0 0 352 512" width="100" title="times">
+                <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
+              </svg>
+            </button>
+          </div>
+        </div>
   </main>
 
 

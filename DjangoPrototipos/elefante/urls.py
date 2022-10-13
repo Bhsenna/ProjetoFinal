@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('criador-<int:id_prova>', views.movel, name='criador'),
+    path('criador/<str:link_prova>', views.movel, name='home'),
+    path('res/<str:link_prova>', views.resolver, name='resol'),
 ]
