@@ -66,9 +66,18 @@ function dragElement(elmnt) {
       let tipo = 'tipo' + newEl.id.slice(-1)
       newEl.id = (newItems.childElementCount - 2)
       newEl.className = `questao ${tipo}`
-      newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado" style="width: calc(100% - 48px); resize: none;"></textarea>` + `<input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais('${tipo}', '${newEl.id}')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos('${tipo}', '${newEl.id}')"></div><ol class="lista" type="a" id="${newEl.id}list">`
+      newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado" style="width: calc(100% - 48px); resize: none; height:48px;"></textarea>` + `<div style="width: 48px;"><input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')"><select id="trocador" style="height: 24px; width: 48px"></select></div></div><ol class="lista" type="a" id="${newEl.id}list">`
 
       newItems.prepend(newEl)
+      let troca = document.getElementById('trocador')
+      let modelos = document.getElementsByClassName('modelo')
+      for (let i=0; i < modelos.length; i++){
+        if (`tipo${i+1}` == tipo){
+          troca.innerHTML += `<option value="tipo${i+1}" selected onclick="changeType(this.parentElement.parentElement.parentElement.parentElement, this.value)">tipo${i+1}</option>`
+        }else{
+          troca.innerHTML += `<option value="tipo${i+1}" onclick="changeType(this.parentElement.parentElement.parentElement.parentElement, this.value)">tipo${i+1}</option>`
+        }
+      }
 
       let novo = document.getElementById(newEl.id)
       document.getElementsByName("csrfmiddlewaretoken")[0].before(novo)

@@ -36,9 +36,8 @@
             let incorretas = ''
             let alternativas = select.getElementsByClassName('alternativas')
             for (var k=0; k < alternativas.length; k++){
-              if (alternativas[k].value != marcada){
                 incorretas += `${alternativas[k].value}, `
-              }}
+              }
             document.getElementById('id_alt_erradas').value = incorretas
           }else if (tipo == 'tipo2'){
             let select = children[j].getElementsByClassName('container')
@@ -50,6 +49,7 @@
               alternativa = radios
               if (alternativa.checked){
                 document.getElementById('id_alt_marcada').value = textos.value
+                incorretas += `${textos.value}, `
               }else {
                 incorretas += `${textos.value}, `
               }}
@@ -63,9 +63,8 @@
             let alternativas = select.querySelectorAll('[name="op"]')
             console.log(alternativas)
             for (var k=0; k < alternativas.length; k++){
-              if (alternativas[k].value != marcada){
                 incorretas += `${alternativas[k].value}, `
-              }}
+              }
             document.getElementById('id_alt_erradas').value = incorretas
           }
           document.getElementById("criacao").requestSubmit()
@@ -196,6 +195,11 @@
         }
       }
       }
+    
+    function changeType(selectElement, tipo){
+      console.log(selectElement)
+      selectElement.className = 'questao ' + tipo
+    }
   </script>
   <script type="module">{}{% include 'elefante/partials/script.js' %}</script>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

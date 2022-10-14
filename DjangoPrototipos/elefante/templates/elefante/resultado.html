@@ -8,6 +8,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>{% include 'elefante/partials/resul.css' %}</style>
+    <script>
+    function enviar() {
+      let questoes = document.getElementById("questoes").childNodes
+      for (var i=0; i < questoes.length; i++) {
+        let tipo = questoes[i].className
+        document.getElementById('id_tipo_questao').value = tipo
+        document.getElementById('id_numero_questao').value = i + 1
+        document.getElementById('id_enunciado').value = questoes[i].childNodes[0].innerHTML
+
+        let children = questoes[i].getElementsByTagName("li")
+        for (var j=0; j < children.length; j++){
+          letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+          document.getElementById('id_letra_questao').value = letras[j]
+          document.getElementById('id_texto1').value = children[j].getElementsByClassName('texto1')[0].innerHTML
+          document.getElementById('id_texto2').value = children[j].getElementsByClassName('texto2')[0].innerHTML
+
+          if (tipo == 'tipo1'){
+            let select = children[j].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
+
+            let incorretas = ''
+            let alternativas = select.getElementsByTagName('option')
+            for (var k=0; k < alternativas.length; k++){
+                incorretas += `${alternativas[k].value}, `
+              }
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo == 'tipo2'){
+            let select = children[j].getElementsByClassName('container')
+            
+            let incorretas = ''
+            for (var k=0; k < select.length; k++){
+              let radios = select[k].getElementsByClassName('radio')[0]
+              let textos = select[k].innerText
+              alternativa = radios
+              if (alternativa.checked){
+                document.getElementById('id_alt_marcada').value = textos
+                incorretas += `${textos}, `
+              }else {
+                incorretas += `${textos}, `
+              }}
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo == 'tipo3'){
+            let select = children[j].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
+
+            let incorretas = ''
+            let alternativas = select.querySelectorAll('[name="op"]')
+            console.log(alternativas)
+            for (var k=0; k < alternativas.length; k++){
+                incorretas += `${alternativas[k].value}, `
+              }
+            document.getElementById('id_alt_erradas').value = incorretas
+          }
+          {% for paper in papers %}
+          if (document.getElementById('id_numero_questao').value == '{{paper.numero_questao}}' && document.getElementById('id_letra_questao').value == '{{paper.letra_questao}}'){
+            if (document.getElementById('id_alt_marcada').value == '{{paper.alt_marcada}}'){
+                document.getElementById('id_correto')
+            }
+          }
+          {% endfor %}
+        //   document.getElementById("criacao").requestSubmit()
+        }
+      }
+    }
+    </script>
 </head>
 <body>
     <header class="cabeçalho">
@@ -18,7 +85,7 @@
                 </a>
            </div>
            <div class="botao">
-                <button class="finalizar">Finalizar</button>
+                <button class="finalizar" onclick="enviar()">Finalizar</button>
             </div>
         </div>
     </header>
@@ -41,23 +108,18 @@
                 document.getElementById('questoes').appendChild(questao)
                 {% for paper in papers %}
                     if ({{paper.numero_questao}} == question){
+                        questao.className = '{{paper.tipo_questao}}'
                         document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
-                        document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li>{{paper.texto1}}
+                        document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li><span class="texto1">{{paper.texto1}}</span>
                         {% with alts=paper.alternativas %}
                         {% if paper.tipo_questao == 'tipo1' %}
                         <select name="calculo" id="calculo" style="margin-left: 21px">
-                            {% for alternativa in alts %}
-                                <option value="a">{{alternativa}}</option>
-                            {% endfor %}
+                            {% for alternativa in alts %}<option value="{{alternativa}}">{{alternativa}}</option>{% endfor %}
                         </select>
                         {% endif %}
                         {% if paper.tipo_questao == 'tipo2' %}
                             {% for alternativa in alts %}
-                            <label class="container"> 
-                                <input type="radio" class="radio" name="${questoes}-radio{{paper.letra_questao}}">
-                                {{alternativa}}
-                                <span class="checkmark"></span>
-                            </label>
+                            <label class="container"><input type="radio" class="radio" name="${questoes}-radio{{paper.letra_questao}}">{{alternativa}}<span class="checkmark"></span></label>
                             {% endfor %}
                         {% endif %}
                         {%endwith%}
@@ -66,6 +128,17 @@
                 {% endfor %}
             }
         </script>
+
+{% csrf_token %}
+<!-- <div style="display:none;"> -->
+  {{form|crispy}}
+  <script>
+    console.log('{{id}}')
+    document.getElementById("id_id_prova").value = '{{id}}'
+    document.getElementById("id_tipo_user").value = 'A'
+    document.getElementById("id_usuario").value = '{{prova.dono.id}}'
+  </script>
+<!-- </div> -->
     </div>
 
 

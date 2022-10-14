@@ -17,4 +17,5 @@ class Cadastro(forms.ModelForm):
             'texto2',
             'alt_marcada',
             'alt_erradas',
+            'correto',
         ]
