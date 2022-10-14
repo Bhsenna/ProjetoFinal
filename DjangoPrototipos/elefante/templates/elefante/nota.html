@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-size: 100%;
+    background-color: #5ce1e6;
+}
+.cabeçalho{
+    height: 11vh;
+    max-width: 100%;
+    flex-direction: row;
+    background-color: #08b8be;
+}
+.logo img{
+    width: 4%;
+    height: 6vh;
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+    </style>
+</head>
+<body>
+    <header class="cabeçalho">
+        <div class="conteudo-primario">
+            <div class="logo">
+                <a href="#">
+                <img src="{% static 'elefante/logo.png' %}" alt="logo do site">
+                </a>
+           </div>
+        </div>
+    </header>
+
+    <span id="nota">0</span>/<span id="total">0</span>
+
+    <script>
+        let nota = 0
+        let total = 0
+        {% for paper in notas %}
+            total += 1
+            {% if paper.correto == True %}
+            nota += 1
+            {% endif %}
+        {% endfor %}
+        document.getElementById('nota').innerHTML = nota
+        document.getElementById('total').innerHTML = total
+    </script>
+</body>
+</html>

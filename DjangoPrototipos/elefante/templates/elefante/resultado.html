@@ -66,15 +66,46 @@
           {% for paper in papers %}
           if (document.getElementById('id_numero_questao').value == '{{paper.numero_questao}}' && document.getElementById('id_letra_questao').value == '{{paper.letra_questao}}'){
             if (document.getElementById('id_alt_marcada').value == '{{paper.alt_marcada}}'){
-                document.getElementById('id_correto')
+              document.getElementById('id_correto').checked = true
+            }else{
+              document.getElementById('id_correto').checked = false
             }
           }
           {% endfor %}
-        //   document.getElementById("criacao").requestSubmit()
+          document.getElementById("envio").requestSubmit()
         }
       }
     }
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(document).on('submit','#envio',function(e){
+        e.preventDefault();
+        $.ajax({
+          type:'POST',
+          url:'{% url "resol" link %}',
+          data:
+          {
+            usuario:$("#id_usuario").val(),
+            tipo_user:$("#id_tipo_user").val(),
+            id_prova:$("#id_id_prova").val(),
+            tipo_questao:$("#id_tipo_questao").val(),
+            numero_questao:$("#id_numero_questao").val(),
+            enunciado:$("#id_enunciado").val(),
+            letra_questao:$("#id_letra_questao").val(),
+            texto1:$("#id_texto1").val(),
+            texto2:$("#id_texto2").val(),
+            alt_marcada:$("#id_alt_marcada").val(),
+            alt_erradas:$("#id_alt_erradas").val(),
+            correto:$("#id_correto").is(":checked"),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+          },
+          success:function(){
+            location.href = `/nota/${document.getElementById("id_usuario").value}/{{link}}`
+            }
+        })
+      });
+      </script>
 </head>
 <body>
     <header class="cabeçalho">
@@ -130,15 +161,14 @@
         </script>
 
 {% csrf_token %}
-<!-- <div style="display:none;"> -->
+<form id="envio" style="display:none;">
   {{form|crispy}}
   <script>
-    console.log('{{id}}')
     document.getElementById("id_id_prova").value = '{{id}}'
     document.getElementById("id_tipo_user").value = 'A'
-    document.getElementById("id_usuario").value = '{{prova.dono.id}}'
+    document.getElementById("id_usuario").value = '1'
   </script>
-<!-- </div> -->
+</form>
     </div>
 
 

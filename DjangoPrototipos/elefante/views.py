@@ -19,7 +19,7 @@ def movel(request, link_prova):
 
 def resolver(request, link_prova):
     prova = get_object_or_404(Prova, link=link_prova)
-    paper = get_list_or_404(Paper, id_prova=prova.id)
+    paper = get_list_or_404(Paper, id_prova=prova.id, tipo_user='C')
     if request.method == 'GET':
         form = Cadastro()
     else:
@@ -27,4 +27,10 @@ def resolver(request, link_prova):
         if form.is_valid():
             cadastro = form.save()
             form = Cadastro()
-    return render(request, 'elefante/resultado.html', {'form': form, 'papers': paper, 'id': prova.id,})
+    return render(request, 'elefante/resultado.html', {'form': form, 'papers': paper, 'id': prova.id, 'link': link_prova})
+
+
+def nota(request, link_prova, usuario):
+    prova = get_object_or_404(Prova, link=link_prova)
+    paper = get_list_or_404(Paper, id_prova=prova.id, usuario=usuario)
+    return render(request, 'elefante/nota.html', {'notas': paper})
