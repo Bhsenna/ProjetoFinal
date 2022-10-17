@@ -10,7 +10,7 @@ function updatemenu() {
 
 
 // Make the DIV element draggable:
-for (let items in document.getElementsByClassName("modelo")) {
+for (let items=0; items < document.getElementsByClassName("modelo").length; items++) {
     dragElement(document.getElementsByClassName("modelo")[items]);
 }
 
@@ -58,15 +58,11 @@ function dragElement(elmnt) {
     if (rect['bottom'] < limite['bottom'] && rect['top'] > limite['top'] && rect['right'] < limite['right'] && rect['left'] > limite['left']){
       let newItems = document.getElementById("criacao")
       let newEl = elmnt.cloneNode(true)
-      newEl.style.top =  ((newItems.childElementCount - 3) * 50) + 'px'
-      newEl.style.left = '0'
-      newEl.style.right = '0'
-      newEl.style.margin = '0 auto'
-      newEl.style.marginBottom = '15px'
+      newEl.style = ''
       let tipo = 'tipo' + newEl.id.slice(-1)
-      newEl.id = (newItems.childElementCount - 2)
+      newEl.id = (newItems.childElementCount - 1)
       newEl.className = `questao ${tipo}`
-      newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado" style="width: calc(100% - 48px); resize: none; height:48px;"></textarea>` + `<div style="width: 48px;"><input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')"><select id="trocador" style="height: 24px; width: 48px"></select></div></div><ol class="lista" type="a" id="${newEl.id}list">`
+      newEl.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado${newEl.id}" style="width: calc(100% - 48px); resize: none; height:48px;"></textarea>` + `<div style="width: 48px;"><input id="${newEl.id}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')">` + `<input id="${newEl.id}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${newEl.id}')"><select id="trocador" style="height: 24px; width: 48px"></select></div></div><ol class="lista" type="a" id="${newEl.id}list">`
 
       newItems.prepend(newEl)
       let troca = document.getElementById('trocador')

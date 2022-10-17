@@ -7,6 +7,7 @@ from .forms import Cadastro
 
 def movel(request, link_prova):
     prova = get_object_or_404(Prova, link=link_prova)
+    paper = Paper.objects.filter(id_prova=prova.id, tipo_user='C')
     if request.method == 'GET':
         form = Cadastro()
     else:
@@ -14,7 +15,7 @@ def movel(request, link_prova):
         if form.is_valid():
             cadastro = form.save()
             form = Cadastro()
-    return render(request, 'elefante/index.html', {'form': form, 'prova': prova})
+    return render(request, 'elefante/index.html', {'form': form, 'prova': prova, 'papers': paper})
 
 
 def resolver(request, link_prova):

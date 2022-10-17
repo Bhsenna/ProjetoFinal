@@ -288,6 +288,55 @@
             </script>
           </div>
         </form>
+        <script>
+          var numbers = new Set()
+      </script>
+      {% for paper in papers %}
+          <script>
+              numbers.add({{paper.numero_questao}})
+          </script>
+      {% endfor %}
+      <script>
+          for (question of numbers){
+              questao = document.createElement('div')
+              questao.id = question
+              questao.innerHTML = `<div style="display: flex; flex-wrap: wrap;"><textarea id="enunciado${question}" style="width: calc(100% - 48px); resize: none; height:48px;">${question}</textarea>` + `<div style="width: 48px;"><input id="${question}_button_mais" style="margin-left: auto; height: 24px; width: 24px" type="button" value="+" onclick="mais(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${question}')">` + `<input id="${question}_button_menos" style="height: 24px; width: 24px" type="button" value="-" onclick="menos(this.parentElement.parentElement.parentElement.className.split(' ')[1], '${question}')"><select id="trocador" style="height: 24px; width: 48px"></select></div></div><ol class="lista" type="a" id="${question}list">`
+              console.log(document.getElementById('criacao'))
+              document.getElementById('criacao').appendChild(questao)
+              {% for paper in papers %}
+                  if ({{paper.numero_questao}} == question){
+                      questao.className = 'questao {{paper.tipo_questao}}'
+                      document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
+                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li><label> <input type="text" class="texto1" value="{{paper.texto1}}"> </label>
+                      {% with alts=paper.alternativas %}
+                      {% if paper.tipo_questao == 'tipo1' %}
+                      <select name="calculo" id="calculo" style="margin-left: 21px">
+                        <option value="new">novo</option>
+                        <option value="remove">remover</option>
+                          {% for alternativa in alts %}
+                          {% if alternativa == paper.alt_marcada %}
+                          <option value="{{alternativa}}" selected>{{alternativa}}</option>
+                          {% else %}
+                          <option value="{{alternativa}}">{{alternativa}}</option>
+                          {% endif %}
+                          {% endfor %}
+                      </select>
+                      {% endif %}
+                      {% if paper.tipo_questao == 'tipo2' %}
+                          {% for alternativa in alts %}
+                          {% if alternativa == paper.alt_marcada %}
+                          <label class="container"><input type="radio" class="radio" checked="checked" name="${question}-radio{{paper.letra_questao}}" ><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          {% else %}
+                          <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          {% endif %}
+                          {% endfor %}
+                      {% endif %}
+                      {%endwith%}
+                      <label for="calculo"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>`
+                  }
+              {% endfor %}
+          }
+      </script>
 
         <div class="resposta">
           <div id="notification" class="notification">

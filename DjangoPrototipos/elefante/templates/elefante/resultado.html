@@ -138,7 +138,7 @@
                 questao = document.createElement('li')
                 questao.id = question
                 questao.innerHTML = `<div style="display: flex; flex-wrap: wrap;" id="enunciado${question}"></div><ol class="lista" type="a" id="${question}list">`
-                document.getElementById('questoes').appendChild(questao)
+                document.getElementById('criacao').appendChild(questao)
                 {% for paper in papers %}
                     if ({{paper.numero_questao}} == question){
                         questao.className = '{{paper.tipo_questao}}'
