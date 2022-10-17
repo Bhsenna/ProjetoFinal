@@ -134,11 +134,12 @@
             </script>
         {% endfor %}
         <script>
-            for (question of numbers){
+            for (question of Array.from(numbers).sort()){
                 questao = document.createElement('li')
                 questao.id = question
                 questao.innerHTML = `<div style="display: flex; flex-wrap: wrap;" id="enunciado${question}"></div><ol class="lista" type="a" id="${question}list">`
                 document.getElementById('criacao').appendChild(questao)
+                for (letter of letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']){
                 {% for paper in papers %}
                     if ({{paper.numero_questao}} == question){
                         questao.className = '{{paper.tipo_questao}}'
@@ -159,6 +160,7 @@
                         <span class="texto2">{{paper.texto2}}</span></li>`
                     }
                 {% endfor %}
+              }
             }
         </script>
 

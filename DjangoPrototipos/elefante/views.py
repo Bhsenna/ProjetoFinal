@@ -10,16 +10,19 @@ def movel(request, link_prova):
     paper = Paper.objects.filter(id_prova=prova.id, tipo_user='C')
 
     def apagar():
-        Paper.objects.filter(id_prova=prova.id, tipo_user='C').delete()
+        things = Paper.objects.filter(id_prova=prova.id, tipo_user='C')
+        for i in things:
+            if len(Paper.objects.filter(id_prova=prova.id, tipo_user='C', numero_questao=i.numero_questao, letra_questao=i.letra_questao)) > 1:
+                i.delete()
 
     if request.method == 'GET':
         form = Cadastro()
     else:
         form = Cadastro(request.POST)
         if form.is_valid():
-            apagar()
             cadastro = form.save()
             form = Cadastro()
+            apagar()
     return render(request, 'elefante/index.html', {'form': form, 'prova': prova, 'papers': paper, 'apagar': apagar})
 
 
