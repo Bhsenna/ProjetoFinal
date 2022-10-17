@@ -84,10 +84,6 @@ function dragElement(elmnt) {
 
     document.onmouseup = null;
     document.onmousemove = null;
-
-    // for (let items in document.getElementsByClassName("questao")) {
-    //   dragOrder(document.getElementsByClassName("questao")[items]);
-    // }
   }
 }
 
