@@ -8,14 +8,19 @@ from .forms import Cadastro
 def movel(request, link_prova):
     prova = get_object_or_404(Prova, link=link_prova)
     paper = Paper.objects.filter(id_prova=prova.id, tipo_user='C')
+
+    def apagar():
+        Paper.objects.filter(id_prova=prova.id, tipo_user='C').delete()
+
     if request.method == 'GET':
         form = Cadastro()
     else:
         form = Cadastro(request.POST)
         if form.is_valid():
+            apagar()
             cadastro = form.save()
             form = Cadastro()
-    return render(request, 'elefante/index.html', {'form': form, 'prova': prova, 'papers': paper})
+    return render(request, 'elefante/index.html', {'form': form, 'prova': prova, 'papers': paper, 'apagar': apagar})
 
 
 def resolver(request, link_prova):
