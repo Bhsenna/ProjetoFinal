@@ -121,4 +121,18 @@ body{
     border-radius: 50%;
     background: rgb(255, 255, 255);
   }
-  
+
+  .pergunta{
+    /* display: block; */
+    display: inline-block;
+    width: 100px;
+  }
+  .selecao{
+    margin-left: 15%;
+    /* display: inline-block; */
+    display:inline;
+  }
+  .opcao{
+    margin-left: 1%;
+    display:inline;
+  }

@@ -110,11 +110,11 @@
             </label>
             <label style="margin-left: 13.788px;"> <input type="text" class="texto2" style="width: 100px" placeholder="opcional"> </label>`,
 
-      'tipo3': `<div class="pergunta"> <input type="text" class="texto1"> </div>
+      'tipo3': `<label class="pergunta"> <input type="text" class="texto1"> </label>
             <div class="selecao">
                 <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
             </div>
-            <div class="opcao"><label for="resposta"> <input type="text" class="texto2" placeholder="opcional"> </label></div>`,
+            <label class="opcao"><label for="resposta"> <input type="text" class="texto2" placeholder="opcional"> </label></label>`,
     }
       modelo.innerHTML += `${modelos[tipo]}`
       document.getElementById(nome_id).appendChild(modelo)
@@ -180,7 +180,6 @@
       for (var i=1; i < siblings.length; i++){
         if (siblings[i].attributes.name.value == 'op' && siblings[i] != selectElement){
           ops = document.getElementsByClassName(siblings[i].className)
-          console.log(siblings[i].parentNode.value + '+')
           for (var j=0; j < ops.length; j++){
             if (ops[j].parentNode.value != siblings[i].value){
               ops[j].disabled = siblings[i].disabled
@@ -252,8 +251,8 @@
           </a>
         </div>
         <div class="botoes">
-          <input type="button" class="salvar" value="Salvar" onclick="save()" id="submit">
-          <button class="compartilhar" onclick="share()">Compartilhar</button>
+          <input type="button" class="salvar" style="cursor: pointer;" value="Salvar" onclick="save()" id="submit">
+          <button class="compartilhar" style="cursor: pointer;" onclick="share()">Compartilhar</button>
         </div>
      </div>
     </header>
@@ -346,6 +345,19 @@
                           <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
                           {% endif %}
                           {% endfor %}
+                      {% endif %}
+                      {% if paper.tipo_questao == 'tipo3' %}
+                          <div class="selecao">
+                            <select name="opcao" id="opcao" class="opcoes{{paper.numero_questao}}list"><option value="?" selected onclick="questao3(this)">?</option>
+                          {% for alternativa in alts %}
+                          {% if alternativa == paper.alt_marcada %}
+                            <option name="op" class="{{alternativa}}" value="{{alternativa}}" onclick="questao3(this)" selected>{{alternativa}}</option>
+                          {% else %}
+                            <option name="op" class="{{alternativa}}" value="{{alternativa}}" onclick="questao3(this)" disabled>{{alternativa}}</option>
+                          {% endif %}
+                          {% endfor %}
+                        </select>
+                          </div>
                       {% endif %}
                       {%endwith%}
                       <label for="calculo"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>`

@@ -76,6 +76,29 @@
         }
       }
     }
+
+    function questao3(selectElement){
+      siblings = selectElement.parentElement.children
+      for (var i=1; i < siblings.length; i++){
+        if (siblings[i].attributes.name.value == 'op' && siblings[i] != selectElement){
+          ops = document.getElementsByClassName(siblings[i].className)
+          for (var j=0; j < ops.length; j++){
+            if (ops[j].parentNode.value != siblings[i].value){
+              ops[j].disabled = siblings[i].disabled
+            }
+          }
+        }
+      }
+
+      if (selectElement.value != '?'){
+        opcs = document.getElementsByClassName(selectElement.className)
+        for (var i=0; i < opcs.length; i++){
+          if (opcs[i] != selectElement){
+            opcs[i].disabled = true
+          }
+        }
+      }
+      }
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -156,8 +179,23 @@
                             <label class="container"><input type="radio" class="radio" name="${questoes}-radio{{paper.letra_questao}}">{{alternativa}}<span class="checkmark"></span></label>
                             {% endfor %}
                         {% endif %}
+                        {% if paper.tipo_questao == 'tipo3' %}
+                          <div class="selecao">
+                            <select name="opcao" id="opcao" class="opcoes{{paper.numero_questao}}list"><option value="?" selected onclick="questao3(this)">?</option>
+                          {% for alternativa in alts %}
+                            <option name="op" class="{{alternativa}}" value="{{alternativa}}" onclick="questao3(this)">{{alternativa}}</option>
+                          {% endfor %}
+                        </select>
+                          </div>
+                      {% endif %}
                         {%endwith%}
                         <span class="texto2">{{paper.texto2}}</span></li>`
+                      {% if paper.tipo_questao == 'tipo3' %}
+                      for (let i=0; i < document.getElementById('{{paper.numero_questao}}list').getElementsByClassName('texto1').length; i++){
+                        document.getElementById('{{paper.numero_questao}}list').getElementsByClassName('texto1')[i].className = 'texto1 pergunta'
+                        document.getElementById('{{paper.numero_questao}}list').getElementsByClassName('texto2')[i].className = 'texto2 opcao'
+                      }
+                      {% endif %}
                     }
                 {% endfor %}
               }
