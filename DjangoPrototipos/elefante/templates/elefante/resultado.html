@@ -138,10 +138,10 @@
                 questao = document.createElement('li')
                 questao.id = question
                 questao.innerHTML = `<div style="display: flex; flex-wrap: wrap;" id="enunciado${question}"></div><ol class="lista" type="a" id="${question}list">`
-                document.getElementById('criacao').appendChild(questao)
+                document.getElementById('questoes').appendChild(questao)
                 for (letter of letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']){
                 {% for paper in papers %}
-                    if ({{paper.numero_questao}} == question){
+                    if ({{paper.numero_questao}} == question && '{{paper.letra_questao}}' == letter){
                         questao.className = '{{paper.tipo_questao}}'
                         document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
                         document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li><span class="texto1">{{paper.texto1}}</span>

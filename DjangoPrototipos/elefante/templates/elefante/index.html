@@ -87,7 +87,7 @@
 </select>
   <label for="calculo"> <input type="text" class="texto2" placeholder="opcional"> </label>`,
 
-      'tipo2': `<label> <input type="text" class="texto1"></label>
+      'tipo2': `<label> <input type="text" class="texto1" style="width: 100px"></label>
             <label class="container"> 
                 <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
@@ -108,7 +108,7 @@
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
                 <span class="checkmark"></span>
             </label>
-            <label style="margin-left: 13.788px;"> <input type="text" class="texto2" placeholder="opcional"> </label>`,
+            <label style="margin-left: 13.788px;"> <input type="text" class="texto2" style="width: 100px" placeholder="opcional"> </label>`,
 
       'tipo3': `<div class="pergunta"> <input type="text" class="texto1"> </div>
             <div class="selecao">
@@ -264,19 +264,19 @@
             <input type="text" name="pesquisar" placeholder="Buscar..">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <div id="model1" class="modelo" style="top: 73px;">
+        <div id="model1" class="modelo" style="top: 100px;">
           <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-          <div id="1header" class="thing">Modelo 1</div>
+          <div id="1header" class="thing"><img class= "img2" src="{% static 'elefante/Complete.png' %}" style="width: 300px;"></div>
       </div>
   
-      <div id="model2" class="modelo" style="top: 123px;" >
+      <div id="model2" class="modelo" style="top: 200px;">
           <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-          <div id="2header" class="thing"><img class= "img2" src="{% static 'elefante/Opcoes.png' %}" style="width: 100%; height:50%;"></div>
+          <div id="2header" class="thing"><img class= "img2" src="{% static 'elefante/Opcoes.png' %}" style="width: 200px;"></div>
       </div>
   
-      <div id="model3" class="modelo" style="top: 173px;">
+      <div id="model3" class="modelo" style="top: 390px;">
           <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-          <div id="3header" class="thing">Modelo 3</div>
+          <div id="3header" class="thing"><img class= "img2" src="{% static 'elefante/Relacione.png' %}" style="width: 200px;"></div>
       </div>
         </div>
 
