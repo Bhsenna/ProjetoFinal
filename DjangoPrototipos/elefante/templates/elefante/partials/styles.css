@@ -3,7 +3,8 @@
 .modelo {
   position: absolute;
   z-index: 9;
-  border: 1px solid #d3d3d3;
+  border: 5px solid #ffffff;
+  border-radius: 10px;
   text-align: center;
   /* width: max-content; */
   left: 50%;
@@ -18,10 +19,10 @@
   }
 
 .thing {
-  /* padding: 10px; */
+  /*padding: 10px;*/
   cursor: move;
   z-index: 10;
-  background-color: #2196F3;
+  background-color:#ffffff;
   color: #fff;
 }
 
