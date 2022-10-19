@@ -80,15 +80,12 @@
       let modelo = document.createElement('li')
       modelo.className = 'linha'
       const modelos = {
-      'tipo1': `<label> <input type="text" class="texto1"> </label>
-  <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+      'tipo1': `<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
 <option value="new">novo</option>
 <option value="remove">remover</option>
-</select>
-  <label for="calculo"> <input type="text" class="texto2" placeholder="opcional"> </label>`,
+</select>`,
 
-      'tipo2': `<label> <input type="text" class="texto1" style="width: 100px"></label>
-            <label class="container"> 
+      'tipo2': `<label class="container"> 
                 <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
                 <span class="checkmark"></span>
@@ -107,16 +104,13 @@
                 <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
                 <span class="checkmark"></span>
-            </label>
-            <label style="margin-left: 13.788px;"> <input type="text" class="texto2" style="width: 100px" placeholder="opcional"> </label>`,
+            </label>`,
 
-      'tipo3': `<label class="pergunta"> <input type="text" class="texto1"> </label>
-            <div class="selecao">
+      'tipo3': `<div class="selecao">
                 <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
-            </div>
-            <label class="opcao"><label for="resposta"> <input type="text" class="texto2" placeholder="opcional"> </label></label>`,
+            </div>`,
     }
-      modelo.innerHTML += `${modelos[tipo]}`
+      modelo.innerHTML += `<label> <input type="text" class="texto1" style="width: 100px"></label><span class="alts">${modelos[tipo]}</span><label style="margin-left: 13.788px;"> <input type="text" class="texto2" style="width: 100px" placeholder="opcional"> </label>`
       document.getElementById(nome_id).appendChild(modelo)
       
       if (tipo === 'tipo3'){
@@ -158,6 +152,9 @@
       if (selectElement.value === "new") {
         var opt = document.createElement('option');
         valor = prompt('Enter a name for the new thing:')
+        if (valor == ''){
+          return
+        }
         opt.value = valor;
         opt.innerHTML = valor;
         opt.className = 'alternativas';
@@ -200,7 +197,107 @@
     
     function changeType(selectElement, tipo){
       console.log(selectElement)
+      tipo_antigo = selectElement.className.split(' ')[1]
       selectElement.className = 'questao ' + tipo
+      nome_id = selectElement.childNodes[1].id
+      elementos = selectElement.childNodes[1].childNodes
+
+      for (i=0; i < elementos.length; i++){
+        console.log(elementos[i])
+        if (tipo_antigo == 'tipo1'){
+            let select = elementos[i].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
+
+            let incorretas = ''
+            let alternativas = select.getElementsByClassName('alternativas')
+            for (var k=0; k < alternativas.length; k++){
+                incorretas += `${alternativas[k].value}, `
+              }
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo_antigo == 'tipo2'){
+            let select = elementos[i].getElementsByClassName('container')
+            
+            let incorretas = ''
+            for (var k=0; k < select.length; k++){
+              let radios = select[k].getElementsByClassName('radio')[0]
+              let textos = select[k].getElementsByTagName('textarea')[0]
+              alternativa = radios
+              if (alternativa.checked){
+                document.getElementById('id_alt_marcada').value = textos.value
+                incorretas += `${textos.value}, `
+              }else {
+                incorretas += `${textos.value}, `
+              }}
+            document.getElementById('id_alt_erradas').value = incorretas
+          }else if (tipo_antigo == 'tipo3'){
+            let select = elementos[i].getElementsByTagName('select')[0]
+            let marcada = select.value
+            document.getElementById('id_alt_marcada').value = marcada
+
+            let incorretas = ''
+            let alternativas = select.querySelectorAll('[name="op"]')
+            console.log(alternativas)
+            for (var k=0; k < alternativas.length; k++){
+                incorretas += `${alternativas[k].value}, `
+              }
+            document.getElementById('id_alt_erradas').value = incorretas
+          }
+        const modelos = {
+        'tipo1': `<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+  <option value="new">novo</option>
+  <option value="remove">remover</option>
+  </select>`,
+  
+        'tipo2': `<label class="container"> 
+                  <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                  <span class="checkmark"></span>
+              </label>
+              <label class="container"> 
+                  <input type="radio" class="radio" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                  <span class="checkmark"></span>
+              </label>
+              <label class="container"> 
+                <input type="radio" class="radio" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                  <span class="checkmark"></span>
+              </label>
+              <label class="container"> 
+                  <input type="radio" class="radio" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
+                  <span class="checkmark"></span>
+              </label>`,
+  
+        'tipo3': `<div class="selecao">
+                  <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
+              </div>`,
+      }
+        
+
+          if (tipo == 'tipo1'){
+            elementos[i].children[1].innerHTML = modelos[tipo]
+            for (j of document.getElementById('id_alt_erradas').value.split(', ').slice(0, -1)){
+              elementos[i].children[1].children[0].innerHTML += `<option class="alternativas" value="${j}">${j}</option>`
+            }
+          }
+          if (tipo == 'tipo2'){
+            alternativas = document.getElementById('id_alt_erradas').value.split(', ').slice(0, -1)
+            elementos[i].children[1].innerHTML = ''
+            for (j=0; j < alternativas.length && j < 4; j++){
+              elementos[i].children[1].innerHTML += `<label class="container"> 
+                  <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;">${alternativas[j]}</textarea>
+                  <span class="checkmark"></span>
+              </label>`
+            }          
+          }
+          if (tipo == 'tipo3'){
+            elementos[i].children[1].innerHTML = modelos[tipo]
+            
+        }
+      }
     }
 
     function share(){
@@ -322,7 +419,7 @@
 
                       questao.className = 'questao {{paper.tipo_questao}}'
                       document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
-                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}"> </label>
+                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}"> </label><span class="alts">
                       {% with alts=paper.alternativas %}
                       {% if paper.tipo_questao == 'tipo1' %}
                       <select name="calculo" id="calculo">
@@ -360,7 +457,7 @@
                           </div>
                       {% endif %}
                       {%endwith%}
-                      <label for="calculo"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>`
+                      </span><label for="calculo"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>`
                   }
               {% endfor %}
               }
