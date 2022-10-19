@@ -17,6 +17,7 @@ class DadosCadastro(models.Model):
 
 class Prova(models.Model):
     id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=30, default='Nova Prova')
     dono = models.ForeignKey(DadosCadastro, on_delete=models.DO_NOTHING)
     link_gen = hashids.encode(randint(0, 9223372036854775807))
     link = models.CharField(max_length=20, default=link_gen, unique=True)
