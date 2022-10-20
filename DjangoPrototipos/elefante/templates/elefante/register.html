@@ -1,0 +1,44 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/5dd5fe0132.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>{% include 'elefante/partials/telacadastro.css' %}</style>
+    <title>Tela cadastro</title>
+</head>
+<body> 
+    <main class="container">
+        <div class="img">
+            <img src="{% static 'elefante/Logo_TCC.png' %}" alt="logo do site">
+        </div>
+        <h2>Criar conta</h2>
+        <br>
+        <form action="" method="POST">
+            <div class="input-field">
+                {% csrf_token %}
+<!--                {{form|crispy}}-->
+                    <div>Username*
+                        {{form.username}}
+                    </div>
+                    <div class="input-group">Email*
+                        {{form.email}}
+                    </div>
+                    <div>Senha*
+                        {{form.password1}}
+                    </div>
+            </div>
+        <input type="submit" value="Finalizar Cadastro">
+
+            <div class="rede">
+                <a href="/accounts/login" id="nao_tem">Já tenho uma conta</a>
+            </div>
+        </form>
+    </main>
+    
+</body>
+</html>

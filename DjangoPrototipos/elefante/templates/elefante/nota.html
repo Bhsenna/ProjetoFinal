@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,6 +28,28 @@ body{
     height: 6vh;
     margin-top: 1rem;
     margin-left: 2rem;
+
+}
+
+.result{
+    background-color:antiquewhite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 10%;
+    border-radius: 15px;
+    color:rgb(16, 97, 97);
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2);
+    font-size: 27px;
+}
+
+h2{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 30px;
 }
     </style>
 </head>
@@ -36,25 +58,27 @@ body{
         <div class="conteudo-primario">
             <div class="logo">
                 <a href="#">
-                <img src="{% static 'elefante/logo.png' %}" alt="logo do site">
+                <img src="{% static 'elefante/logo.png' %}"alt="logo do site">
                 </a>
            </div>
         </div>
     </header>
 
-    <span id="nota">0</span>/<span id="total">0</span>
-
-    <script>
-        let nota = 0
-        let total = 0
-        {% for paper in notas %}
-            total += 1
-            {% if paper.correto == True %}
-            nota += 1
-            {% endif %}
-        {% endfor %}
-        document.getElementById('nota').innerHTML = nota
-        document.getElementById('total').innerHTML = total
-    </script>
+    <span class="result">
+        <h2>Sua Nota Final</h2>
+        <span id="nota">0</span>/<span id="total">0</span>
+        <script>
+            let nota = 0
+            let total = 0
+            {% for paper in notas %}
+                total += 1
+                {% if paper.correto == True %}
+                    nota += 1
+                {% endif %}
+            {% endfor %}
+            document.getElementById('nota').innerHTML = nota
+            document.getElementById('total').innerHTML = total
+        </script>
+    </span>
 </body>
 </html>
