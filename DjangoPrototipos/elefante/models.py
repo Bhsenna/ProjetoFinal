@@ -1,6 +1,7 @@
 from django.db import models
 from hashids import Hashids
 from random import randint
+from django.core.exceptions import ValidationError
 hashids = Hashids(salt="QuickTest", min_length=16)
 
 
@@ -24,7 +25,6 @@ class Prova(models.Model):
 
     def __str__(self):
         return str(self.dono) + " - " + str(self.link)
-
 
 class Paper(models.Model):
     TIPOS_USER = (
@@ -54,3 +54,7 @@ class Paper(models.Model):
 
     def alternativas(self):
         return self.alt_erradas[:-1].split(', ')
+
+    def validate_unique(self, exclude=None):
+        if self.tipo_user == 'A' and Paper.objects.exclude(id=self.id).filter(usuario=self.usuario, id_prova=self.id_prova, numero_questao=self.numero_questao, letra_questao=self.letra_questao).exists():
+            raise ValidationError('Essa prova já foi respondida!')
