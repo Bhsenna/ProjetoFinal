@@ -441,7 +441,7 @@
 
                       questao.className = 'questao {{paper.tipo_questao}}'
                       document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
-                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `{% spaceless %}<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}"> </label><span class="alts">
+                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `{% spaceless %}<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}" style="width: 90%" > </label><span class="alts">
                       {% with alts=paper.alternativas %}
                       {% if paper.tipo_questao == 'tipo1' %}
                       <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
@@ -459,9 +459,9 @@
                       {% if paper.tipo_questao == 'tipo2' %}
                           {% for alternativa in alts %}
                           {% if alternativa == paper.alt_marcada %}
-                          <label class="container"><input type="radio" class="radio" checked="checked" name="${question}-radio{{paper.letra_questao}}" ><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          <label class="container"><input type="radio" class="radio" checked="checked" name="${question}-radio{{paper.letra_questao}}" ><textarea style="height: 18px; resize: none; max-width: 60px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
                           {% else %}
-                          <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 60px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
                           {% endif %}
                           {% endfor %}
                       {% endif %}
