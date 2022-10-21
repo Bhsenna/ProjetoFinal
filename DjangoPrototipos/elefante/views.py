@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404, HttpResponseRedirect
+from django.urls import reverse
 from .forms import *
 from .models import Paper, Prova
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -25,6 +27,7 @@ def SignUp(request):
 
         return redirect('accounts/login')
 
+
 @login_required
 def movel(request, link_prova):
     prova = get_object_or_404(Prova, link=link_prova)
@@ -33,7 +36,8 @@ def movel(request, link_prova):
     def apagar():
         things = Paper.objects.filter(id_prova=prova.id, tipo_user='C')
         for i in things:
-            if len(Paper.objects.filter(id_prova=prova.id, tipo_user='C', numero_questao=i.numero_questao, letra_questao=i.letra_questao)) > 1:
+            if len(Paper.objects.filter(id_prova=prova.id, tipo_user='C', numero_questao=i.numero_questao,
+                                        letra_questao=i.letra_questao)) > 1:
                 i.delete()
 
     if request.method == 'GET':
@@ -44,7 +48,9 @@ def movel(request, link_prova):
             cadastro = form.save()
             form = Cadastro()
             apagar()
-    return render(request, 'elefante/telacriacao.html', {'form': form, 'prova': prova, 'papers': paper, 'apagar': apagar})
+    return render(request, 'elefante/telacriacao.html',
+                  {'form': form, 'prova': prova, 'papers': paper, 'apagar': apagar})
+
 
 @login_required
 def resolver(request, link_prova):
@@ -57,7 +63,9 @@ def resolver(request, link_prova):
         if form.is_valid():
             cadastro = form.save()
             form = Cadastro()
-    return render(request, 'elefante/telaresolucao.html', {'form': form, 'papers': paper, 'id': prova.id, 'link': link_prova})
+    return render(request, 'elefante/telaresolucao.html',
+                  {'form': form, 'papers': paper, 'id': prova.id, 'link': link_prova, 'usuario': request.user.id})
+
 
 @login_required
 def nota(request, link_prova, usuario):
@@ -65,6 +73,29 @@ def nota(request, link_prova, usuario):
     paper = get_list_or_404(Paper, id_prova=prova.id, usuario=usuario)
     return render(request, 'elefante/nota.html', {'notas': paper})
 
+
+@login_required
+def recentes(request):
+    prova = get_list_or_404(Prova, dono=request.user)
+    if request.method == 'GET':
+        form = NewProva()
+    else:
+        form = NewProva(request.POST)
+        if form.is_valid():
+            cadastro = form.save()
+            form = NewProva()
+            return HttpResponseRedirect(reverse('criador', args=[cadastro.link]))
+    return render(request, 'elefante/telarecentes.html', {'usuario': request.user.id, 'provas': prova, 'form': form})
+
+
 @login_required
 def homepage(request):
-    return render(request, 'elefante/telahomepage.html')
+    if request.method == 'GET':
+        form = NewProva()
+    else:
+        form = NewProva(request.POST)
+        if form.is_valid():
+            cadastro = form.save()
+            form = NewProva()
+            return HttpResponseRedirect(reverse('criador', args=[cadastro.link]))
+    return render(request, 'elefante/telahomepage.html', {'usuario': request.user.id, 'form': form})

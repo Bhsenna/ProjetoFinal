@@ -23,6 +23,16 @@ class Cadastro(forms.ModelForm):
             'correto',
         ]
 
+
+class NewProva(forms.ModelForm):
+    class Meta:
+        model = Prova
+        fields = [
+            'nome',
+            'dono',
+        ]
+
+
 class cadaa(UserCreationForm):
     # email = forms.EmailField(required=True)
     # def __init__(self, *args, **kwargs):

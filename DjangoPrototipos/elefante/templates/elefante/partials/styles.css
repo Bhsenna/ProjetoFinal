@@ -1,4 +1,19 @@
-
+textarea{
+  font-family: monospace; !important
+  font-size: medium; !important
+}
+input{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; !important
+  font-size: small; !important
+}
+option{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; !important
+  font-size: small; !important
+}
+select{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; !important
+  font-size: small; !important
+} 
 
 .modelo {
   position: absolute;
