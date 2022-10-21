@@ -4,6 +4,8 @@ from .forms import *
 from .models import Paper, Prova
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from hashids import Hashids
+hashids = Hashids(salt="QuickTest", min_length=16)
 
 
 # Create your views here.
@@ -76,7 +78,11 @@ def nota(request, link_prova, usuario):
 
 @login_required
 def recentes(request):
-    prova = get_list_or_404(Prova, dono=request.user)
+    prova = Prova.objects.filter(dono=request.user)
+
+    def gerar_link():
+        return hashids.encode(randint(0, 9223372036854775807))
+
     if request.method == 'GET':
         form = NewProva()
     else:
@@ -85,11 +91,14 @@ def recentes(request):
             cadastro = form.save()
             form = NewProva()
             return HttpResponseRedirect(reverse('criador', args=[cadastro.link]))
-    return render(request, 'elefante/telarecentes.html', {'usuario': request.user.id, 'provas': prova, 'form': form})
+    return render(request, 'elefante/telarecentes.html', {'usuario': request.user.id, 'provas': prova, 'form': form, 'link': gerar_link})
 
 
 @login_required
 def homepage(request):
+    def gerar_link():
+        return hashids.encode(randint(0, 9223372036854775807))
+
     if request.method == 'GET':
         form = NewProva()
     else:
@@ -98,4 +107,4 @@ def homepage(request):
             cadastro = form.save()
             form = NewProva()
             return HttpResponseRedirect(reverse('criador', args=[cadastro.link]))
-    return render(request, 'elefante/telahomepage.html', {'usuario': request.user.id, 'form': form})
+    return render(request, 'elefante/telahomepage.html', {'usuario': request.user.id, 'form': form, 'link': gerar_link})

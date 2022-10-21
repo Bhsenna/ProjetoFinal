@@ -17,6 +17,7 @@ class Prova(models.Model):
     def __str__(self):
         return str(self.dono.username) + " - " + str(self.link)
 
+
 class Paper(models.Model):
     TIPOS_USER = (
         ("C", "Criador"),

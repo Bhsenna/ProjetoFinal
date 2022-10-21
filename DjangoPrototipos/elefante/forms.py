@@ -30,6 +30,7 @@ class NewProva(forms.ModelForm):
         fields = [
             'nome',
             'dono',
+            'link',
         ]
 
 
