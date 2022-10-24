@@ -10,7 +10,7 @@ hashids = Hashids(salt="QuickTest", min_length=16)
 class Prova(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=30, default='Nova Prova')
-    dono = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    dono = models.ForeignKey(User, on_delete=models.CASCADE)
     link_gen = hashids.encode(randint(0, 9223372036854775807))
     link = models.CharField(max_length=20, default=link_gen, unique=True)
 
@@ -31,9 +31,9 @@ class Paper(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, db_constraint=False)
     tipo_user = models.CharField(max_length=1, choices=TIPOS_USER)
-    id_prova = models.ForeignKey(Prova, on_delete=models.DO_NOTHING)
+    id_prova = models.ForeignKey(Prova, on_delete=models.CASCADE)
     tipo_questao = models.CharField(max_length=5, choices=TIPOS_QUESTAO)
     numero_questao = models.IntegerField()
     enunciado = models.TextField()

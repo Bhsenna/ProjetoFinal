@@ -51,7 +51,7 @@ def movel(request, link_prova):
             form = Cadastro()
             apagar()
     return render(request, 'elefante/telacriacao.html',
-                  {'form': form, 'prova': prova, 'papers': paper, 'apagar': apagar})
+                  {'form': form, 'prova': prova, 'papers': paper})
 
 
 @login_required
