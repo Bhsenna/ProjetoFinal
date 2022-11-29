@@ -8,12 +8,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tela de criação</title>
-  <style>{% include 'elefante/partials/style.css' %}</style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <style>{% include 'elefante/partials/telacriacao.css' %}</style>
   <style>{% include 'elefante/partials/styles.css' %}</style>
   <script src="https://kit.fontawesome.com/5dd5fe0132.js" crossorigin="anonymous"></script>
   <script>
     function save() {
-      const notification = document.getElementById("notification");
+      const notificationSave = document.getElementById("notificationSave");
+      const notificationShare = document.getElementById("notificationShare");
       let questoes = document.getElementsByClassName("questao")
       for (var i=0; i < questoes.length; i++) {
         let tipo = questoes[i].className.split(" ")[1]
@@ -80,12 +82,12 @@
       let modelo = document.createElement('li')
       modelo.className = 'linha'
       const modelos = {
-      'tipo1': `<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+      'tipo1': `{% spaceless %}<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
 <option value="new">novo</option>
 <option value="remove">remover</option>
-</select>`,
+</select>{% endspaceless %}`,
 
-      'tipo2': `<label class="container"> 
+      'tipo2': `{% spaceless %}<label class="container"> 
                 <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
                 <span class="checkmark"></span>
@@ -104,13 +106,13 @@
                 <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
                 <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
                 <span class="checkmark"></span>
-            </label>`,
+            </label>{% endspaceless %}`,
 
-      'tipo3': `<div class="selecao">
+      'tipo3': `{% spaceless %}<div class="selecao">
                 <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
-            </div>`,
+            </div>{% endspaceless %}`,
     }
-      modelo.innerHTML += `<label> <input type="text" class="texto1" style="width: 100px"></label><span class="alts">${modelos[tipo]}</span><label style="margin-left: 13.788px;"> <input type="text" class="texto2" style="width: 100px" placeholder="opcional"> </label>`
+      modelo.innerHTML += `<label><input type="text" class="texto1"></label><span class="alts">${modelos[tipo]}</span><label style="margin-left: 13.788px;"><input type="text" class="texto2"placeholder="opcional"></label>`
       document.getElementById(nome_id).appendChild(modelo)
       
       if (tipo === 'tipo3'){
@@ -131,10 +133,10 @@
         questions = document.getElementsByClassName('questao')
 
         for (i=0; i < questions.length; i++) {
-          questions[i].id = i
-          questions[i].children[1].id = i + 'list'
-          questions[i].children[0].children[1].attributes[4].nodeValue = questions[i].children[0].children[1].attributes[4].nodeValue.slice(0, -3) + i + "')"
-          questions[i].children[0].children[2].attributes[4].nodeValue = questions[i].children[0].children[2].attributes[4].nodeValue.slice(0, -3) + i + "')"
+          questions[i].id = i+1
+          questions[i].children[1].id = (i+1) + 'list'
+          questions[i].children[0].children[1].children[0].attributes[4].nodeValue = questions[i].children[0].children[1].children[0].attributes[4].nodeValue.slice(0, -3) + (i+1) + "')"
+          questions[i].children[0].children[1].children[1].attributes[4].nodeValue = questions[i].children[0].children[1].children[1].attributes[4].nodeValue.slice(0, -3) + (i+1) + "')"
         }
       }else {
       documento[documento.length - 1].remove()
@@ -196,14 +198,12 @@
       }
     
     function changeType(selectElement, tipo){
-      console.log(selectElement)
       tipo_antigo = selectElement.className.split(' ')[1]
       selectElement.className = 'questao ' + tipo
       nome_id = selectElement.childNodes[1].id
       elementos = selectElement.childNodes[1].childNodes
 
       for (i=0; i < elementos.length; i++){
-        console.log(elementos[i])
         if (tipo_antigo == 'tipo1'){
             let select = elementos[i].getElementsByTagName('select')[0]
             let marcada = select.value
@@ -237,65 +237,75 @@
 
             let incorretas = ''
             let alternativas = select.querySelectorAll('[name="op"]')
-            console.log(alternativas)
             for (var k=0; k < alternativas.length; k++){
                 incorretas += `${alternativas[k].value}, `
               }
             document.getElementById('id_alt_erradas').value = incorretas
           }
         const modelos = {
-        'tipo1': `<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
-  <option value="new">novo</option>
-  <option value="remove">remover</option>
-  </select>`,
-  
-        'tipo2': `<label class="container"> 
-                  <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${i}">
-                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
-                  <span class="checkmark"></span>
-              </label>
-              <label class="container"> 
-                  <input type="radio" class="radio" name="${nome_id}-radio${i}">
-                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
-                  <span class="checkmark"></span>
-              </label>
-              <label class="container"> 
-                <input type="radio" class="radio" name="${nome_id}-radio${i}">
-                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
-                  <span class="checkmark"></span>
-              </label>
-              <label class="container"> 
-                  <input type="radio" class="radio" name="${nome_id}-radio${i}">
-                  <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
-                  <span class="checkmark"></span>
-              </label>`,
-  
-        'tipo3': `<div class="selecao">
-                  <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
-              </div>`,
-      }
+      'tipo1': `{% spaceless %}<select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
+<option value="new">novo</option>
+<option value="remove">remover</option>
+</select>{% endspaceless %}`,
+
+      'tipo2': `{% spaceless %}<label class="container"> 
+                <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>
+                <span class="checkmark"></span>
+            </label>
+            <label class="container"> 
+                <input type="radio" class="radio" name="${nome_id}-radio${document.getElementById(nome_id).childElementCount}">
+                <textarea style="height: 18px; resize: none; max-width: 50px;"></textarea>  
+                <span class="checkmark"></span>
+            </label>{% endspaceless %}`,
+
+      'tipo3': `{% spaceless %}<div class="selecao">
+                <select name="opcao" id="opcao" class="opcoes${nome_id}"><option value="?" selected onclick="questao3(this)">?</option></select>
+            </div>{% endspaceless %}`,
+    }
         
 
           if (tipo == 'tipo1'){
             elementos[i].children[1].innerHTML = modelos[tipo]
             for (j of document.getElementById('id_alt_erradas').value.split(', ').slice(0, -1)){
-              elementos[i].children[1].children[0].innerHTML += `<option class="alternativas" value="${j}">${j}</option>`
+              if (j == document.getElementById('id_alt_marcada').value){
+                elementos[i].children[1].children[0].innerHTML += `<option class="alternativas" value="${j}" selected>${j}</option>`
+              }else{
+                elementos[i].children[1].children[0].innerHTML += `<option class="alternativas" value="${j}">${j}</option>`
+              }
             }
           }
           if (tipo == 'tipo2'){
             alternativas = document.getElementById('id_alt_erradas').value.split(', ').slice(0, -1)
             elementos[i].children[1].innerHTML = ''
             for (j=0; j < alternativas.length && j < 4; j++){
-              elementos[i].children[1].innerHTML += `<label class="container"> 
+              if (alternativas[j] == document.getElementById('id_alt_marcada').value){
+                elementos[i].children[1].innerHTML += `{% spaceless %}<label class="container"> 
                   <input type="radio" class="radio" checked="checked" name="${nome_id}-radio${i}">
                   <textarea style="height: 18px; resize: none; max-width: 50px;">${alternativas[j]}</textarea>
                   <span class="checkmark"></span>
-              </label>`
+              </label>{% endspaceless %}`
+              }else{
+                elementos[i].children[1].innerHTML += `{% spaceless %}<label class="container"> 
+                  <input type="radio" class="radio" name="${nome_id}-radio${i}">
+                  <textarea style="height: 18px; resize: none; max-width: 50px;">${alternativas[j]}</textarea>
+                  <span class="checkmark"></span>
+              </label>{% endspaceless %}`
+              }
             }          
           }
           if (tipo == 'tipo3'){
-            elementos[i].children[1].innerHTML = modelos[tipo]
-            
+            elementos[i].children[1].innerHTML = modelos[tipo]   
         }
       }
     }
@@ -303,6 +313,11 @@
     function share(){
       let compartilhamento = 'http://127.0.0.1:8000/res/{{prova.link}}'
       navigator.clipboard.writeText(compartilhamento)
+
+      notificationShare.classList.add("notification-show");
+          setTimeout(function(){
+            notificationShare.classList.remove("notification-show");
+          }, 5000)
     }
   </script>
   <script type="module">{}{% include 'elefante/partials/script.js' %}</script>
@@ -312,7 +327,7 @@
       e.preventDefault();
       $.ajax({
         type:'POST',
-        url:'{% url "home" prova.link %}',
+        url:'{% url "criador" prova.link %}',
         data:
         {
           usuario:$("#id_usuario").val(),
@@ -329,9 +344,9 @@
           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
         },
         success:function(){
-          notification.classList.add("notification-show");
+          notificationSave.classList.add("notification-show");
           setTimeout(function(){
-            notification.classList.remove("notification-show");
+            notificationSave.classList.remove("notification-show");
           }, 5000)
           }
       })
@@ -339,20 +354,27 @@
     </script>
 </head>
 
-<body>
-    <header class="cabeçalho">
-      <div class="conteudo-primario">
-        <div class="logo">
-          <a href="#">
-          <img src="{% static 'elefante/logo.png' %}" alt="logo do site">
-          </a>
+<body>   
+    <nav class="navbar navbar-expand-lg bg-info">
+      <div class="container-fluid">
+          <img src="{% static 'elefante/Logo_TCC.png' %}" alt="Bootstrap" width="30" height="24">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/home"><strong>Home</strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projetos">Projetos Recentes</a>
+            </li>
+          </ul>
+            <input type="button" class="btn btn-outline-success" style="cursor: pointer; margin-right: 5px;" value="Salvar" onclick="save()" id="submit">
+            <button class="btn btn-outline-success" style="cursor: pointer;" onclick="share()">Compartilhar</button>
         </div>
-        <div class="botoes">
-          <input type="button" class="salvar" style="cursor: pointer;" value="Salvar" onclick="save()" id="submit">
-          <button class="compartilhar" style="cursor: pointer;" onclick="share()">Compartilhar</button>
-        </div>
-     </div>
-    </header>
+      </div>
+    </nav>
 
   <main class="conteudo-secundario">
         <div class="questoes">
@@ -419,10 +441,10 @@
 
                       questao.className = 'questao {{paper.tipo_questao}}'
                       document.getElementById(`enunciado{{paper.numero_questao}}`).innerHTML = '{{paper.enunciado}}'
-                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}"> </label><span class="alts">
+                      document.getElementById('{{paper.numero_questao}}list').innerHTML += `{% spaceless %}<li class="linha"><label> <input type="text" class="texto1" value="{{paper.texto1}}" style="width: 90%" > </label><span class="alts">
                       {% with alts=paper.alternativas %}
                       {% if paper.tipo_questao == 'tipo1' %}
-                      <select name="calculo" id="calculo">
+                      <select name="calculo" id="calculo" onclick="checkAndAddOption(this)">
                         <option value="new">novo</option>
                         <option value="remove">remover</option>
                           {% for alternativa in alts %}
@@ -437,9 +459,9 @@
                       {% if paper.tipo_questao == 'tipo2' %}
                           {% for alternativa in alts %}
                           {% if alternativa == paper.alt_marcada %}
-                          <label class="container"><input type="radio" class="radio" checked="checked" name="${question}-radio{{paper.letra_questao}}" ><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          <label class="container"><input type="radio" class="radio" checked="checked" name="${question}-radio{{paper.letra_questao}}" ><textarea style="height: 18px; resize: none; max-width: 60px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
                           {% else %}
-                          <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 50px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
+                          <label class="container"><input type="radio" class="radio" name="${question}-radio{{paper.letra_questao}}"><textarea style="height: 18px; resize: none; max-width: 60px;">{{alternativa}}</textarea><span class="checkmark"></span></label>
                           {% endif %}
                           {% endfor %}
                       {% endif %}
@@ -457,7 +479,7 @@
                           </div>
                       {% endif %}
                       {%endwith%}
-                      </span><label for="calculo"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>`
+                      </span><label style="margin-left: 13.788px;"> <input type="text" class="texto2" placeholder="opcional" value="{{paper.texto2}}"> </label></li>{% endspaceless %}`
                   }
               {% endfor %}
               }
@@ -465,9 +487,18 @@
       </script>
 
         <div class="resposta">
-          <div id="notification" class="notification">
+          <div id="notificationSave" class="notification">
             <p>Salvo com sucesso</p>
-            <button id="close" class="notification__close" onclick="notification.classList.remove('notification-show');">
+            <button id="close" class="notification__close" onclick="notificationSave.classList.remove('notification-show');">
+              <svg viewBox="0 0 352 512" width="100" title="times">
+                <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
+              </svg>
+            </button>
+          </div>
+
+          <div id="notificationShare" class="notification">
+            <p>Link copiado</p>
+            <button id="close" class="notification__close" onclick="notificationShare.classList.remove('notification-show');">
               <svg viewBox="0 0 352 512" width="100" title="times">
                 <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
               </svg>

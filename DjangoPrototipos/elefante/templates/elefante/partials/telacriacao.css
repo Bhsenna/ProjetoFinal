@@ -32,7 +32,7 @@ body{
     position: relative;
     justify-content: space-around;
     bottom: 45px;
-    gap: 60rem;
+    /* gap: 60rem; */
 }
 
 .salvar {
@@ -74,6 +74,13 @@ body{
     padding-top: 20px;
     margin-left: 77%;
   }
+
+.texto1{
+  width: 90%
+}
+.texto2{
+  width: 90%
+}
 
   .criacao {
     width: 40%;

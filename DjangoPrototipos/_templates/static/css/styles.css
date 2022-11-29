@@ -1,0 +1,99 @@
+
+.modelo {
+  position: absolute;
+  z-index: 9;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.questao {
+	z-index: 9;
+	border: 1px solid #d3d3d3;
+	text-align: center;
+  }
+
+.thing {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+/* MODELO 2 */
+.container {
+  /* display: block; */
+  position: relative;
+  padding-left: 21px;
+  /* margin-top: 5px; */
+  margin-left: 13.788px;
+  cursor: pointer;
+  /* font-size: 22px; */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  max-width: fit-content;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: inline;
+}
+
+.container .checkmark:after {
+  top: 5.4px;
+  left: 5.4px;
+  width: 4.8px;
+  height: 4.8px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+}
+
+/* MODELO 3 */
+.pergunta{
+  /* display: block; */
+  display:inline;
+}
+.selecao{
+  margin-left: 15%;
+  /* display: inline-block; */
+  display:inline;
+}
+.opcao{
+  margin-left: 1%;
+  display:inline;
+}

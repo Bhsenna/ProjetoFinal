@@ -1,4 +1,7 @@
-
+textarea{
+  font-family: monospace; !important
+  font-size: medium; !important
+}
 
 .modelo {
   position: absolute;

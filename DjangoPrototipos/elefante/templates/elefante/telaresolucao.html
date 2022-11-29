@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>{% include 'elefante/partials/resul.css' %}</style>
+    <style>{% include 'elefante/partials/telaresolucao.css' %}</style>
     <script>
     function enviar() {
       let questoes = document.getElementById("questoes").childNodes
@@ -78,6 +78,7 @@
     }
 
     function questao3(selectElement){
+      console.log('oi')
       siblings = selectElement.parentElement.children
       for (var i=1; i < siblings.length; i++){
         if (siblings[i].attributes.name.value == 'op' && siblings[i] != selectElement){
@@ -208,7 +209,7 @@
   <script>
     document.getElementById("id_id_prova").value = '{{id}}'
     document.getElementById("id_tipo_user").value = 'A'
-    document.getElementById("id_usuario").value = '1'
+    document.getElementById("id_usuario").value = '{{usuario}}'
   </script>
 </form>
     </div>

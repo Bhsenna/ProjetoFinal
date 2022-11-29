@@ -1,0 +1,77 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script  src =" https://kit.fontawesome.com/5dd5fe0132.js " crossorigin =" anônimo " ></script>
+  </head>
+
+  <body style="background-color: #5ce1e6;" >
+
+    <nav class="navbar navbar-expand-lg bg-info">
+        <div class="container-fluid">
+            <img src="{% static 'elefante/Logo_TCC.png' %}" alt="Bootstrap" width="30" height="24">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      OLá!
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/accounts/logout">Sair</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/home"><strong>Home</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" onclick="novaProva()"style="cursor: pointer;">Criar Projeto</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Digite..." aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <h2 style="margin-top: 20px; margin-left: 50px;" >Recentes</h2>
+
+      <div style="display: flex; width: 100%; flex-wrap: wrap;">
+        {% for prova in provas %}
+        <a href="/criador/{{prova.link}}" style="text-decoration: none; color: black;">
+          <div class="card" style="width: 18rem; margin-top: 100px; padding: 80px; padding-left: 70px; margin-left: 50px;">
+            <div class="card-body" style="height: 88px;">
+              <p class="card-title" style="text-align: center; width:104px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"><strong>{{prova.nome}}</strong></p>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+          <a onclick="novaProva()" style="text-decoration: none; color: black; margin-left: 50px; display: flex; margin-top: 209px; font-size: 30px;"><i style="cursor: pointer;" class="fa-solid fa-plus"></i></a>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
+    <form id="nova_prova" style="display: none;" action="" method="POST">
+      {% csrf_token %}
+      {{form|crispy}}
+      <script>
+        function novaProva(){
+          document.getElementById("id_nome").value = prompt('Qual o nome da nova prova:')
+          document.getElementById("id_dono").value = '{{usuario}}'
+          document.getElementById("id_link").value = '{{link}}'
+          document.getElementById('nova_prova').requestSubmit()
+        }
+      </script>
+    </form>
+
+  </body>
+</html>
